@@ -15,7 +15,6 @@ def checkAdditiveModel(csv_name, type='excel'):
     print(comp)
     score  = mydict['Score']
     print(score)
-    
 
 checkAdditiveModel('input_couches.xlsx')    
    
