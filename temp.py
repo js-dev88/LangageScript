@@ -9,10 +9,10 @@ import pandas as pd
 
 def checkAdditiveModel(csv_name):
     mydict = pd.read_excel('input_couches.xlsx') #pd.read_csv
-    prod = mydict['Name']
+    prod = mydict['Produit']
     comp = mydict['Composition']
-    perf = mydict['Performance ']
-    score  = mydict['Score Global']
+    perf = mydict['Performance']
+    score  = mydict['Score']
     
    
   
