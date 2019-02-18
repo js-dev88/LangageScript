@@ -1,18 +1,22 @@
-"""
-Created on Tue Feb 12 16:00:28 2019
-
-@author: ayoubafrass
-"""
-
-
 import pandas as pd
 
-def checkAdditiveModel(csv_name):
-    mydict = pd.read_excel('input_couches.xlsx') #pd.read_csv
-    prod = mydict['Name']
-    comp = mydict['Composition']
-    perf = mydict['Performance ']
-    score  = mydict['Score Global']
+def checkAdditiveModel(csv_name, type='excel'):
+    if type == 'csv':
+        mydict = pd.read_csv(csv_name) 
+    elif type == 'excel':
+        mydict = pd.read_excel(csv_name) 
     
+    print(mydict)
+    prod = mydict['Produit']
+    print(prod)
+    perf = mydict['Performance']
+    print(perf)
+    comp = mydict['Composition']
+    print(comp)
+    score  = mydict['Score']
+    print(score)
+    
+
+checkAdditiveModel('input_couches.xlsx')    
    
   
