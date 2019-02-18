@@ -1,11 +1,18 @@
-# -*- coding: utf-8 -*-
 """
-Spyder Editor
+Created on Tue Feb 12 16:00:28 2019
 
-This is a temporary script file.
+@author: ayoubafrass
 """
 
 
-import pandas as panda
+import pandas as pd
 
-mydict=panda.read_excel('input_couches.xlsx')
+def checkAdditiveModel(csv_name):
+    mydict = pd.read_excel('input_CheckAdditive.xlsx') #pd.read_csv
+    prod = mydict['Name']
+    comp = mydict['Composition']
+    perf = mydict['Performance ']
+    score  = mydict['Score Global']
+    
+   
+  
