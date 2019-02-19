@@ -5,6 +5,7 @@ import math
 
 
 def checkAdditiveModel(csv_name, type='excel'):
+    
     model = linearProgramSolver(csv_name, type, 'x1', 'max', 'Linear Program With Scores')
     displayModel(model)
     
@@ -52,6 +53,7 @@ def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme):
     return variable_list
 
 def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, score):
+    
     constraint_list = list()
     cons_num = 0
     for var_num in range(1,len(variable_list),nb_criteria-1):
@@ -66,6 +68,7 @@ def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, score)
     return constraint_list
                
 def createConstraint(list_of_parameter,score):
+    
     list_expr = list()
     for t in list_of_parameter:
         expr = t[0]* t[1]
