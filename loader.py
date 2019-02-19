@@ -39,7 +39,7 @@ def buildCoeffList(df):
     return coeff_list
 
 def parseDataframe(df):
-     """
+    """
     parse the dataframe from the excel file in usefull compenents
 
     Args:
@@ -51,10 +51,11 @@ def parseDataframe(df):
         df_criteria_list : a sub dataframe with Produits and criterias columns
         df_criteria_bareme : a sub dataframe with the criterias columns and the boundaries of each value
     """
+    
     score  = df['Score'].copy()
     coeff_list = buildCoeffList(df)
     df_bareme = df[['Note','Min_value','Max_value']].copy()
     df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
     df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
     
-    return score, coeff_list, df_bareme, df_criteria_list, df_criteria_bareme
+    return score, coeff_list, df_criteria_list, df_criteria_bareme

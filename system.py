@@ -11,7 +11,7 @@ def checkAdditiveModel(csv_name, type='excel'):
     
 
 def linearProgramSolver(csv_name, type, eval_expr, direction, model_name):
-    score, coeff_list, df_bareme, df_criteria_list, df_criteria_bareme = loadModel(csv_name, type)
+    score, coeff_list, df_criteria_list, df_criteria_bareme = loadModel(csv_name, type)
     nb_criteria = len(df_criteria_list.columns)
     # variables definition
     variable_list = buildVariableDefinitionList(df_criteria_list, df_criteria_bareme)
