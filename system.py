@@ -2,8 +2,7 @@ from optlang import Model, Variable, Constraint, Objective
 from loader import loadModel
 import pandas as pd
 import math
-from sympy.parsing.sympy_parser import parse_expr
-from sympy import UnevaluatedExpr
+
 
 def checkAdditiveModel(csv_name, type='excel'):
     model = linearProgramSolver(csv_name, type, 'x1', 'max', 'Linear Program With Scores')
