@@ -1,4 +1,5 @@
 from optlang import Model, Variable, Constraint, Objective
+import pandas as pd
 
 y1 = 17
 y2 = 14.5
@@ -35,7 +36,7 @@ x23 = Variable ('x23', lb=10, ub = 12.5)
 x24 = Variable ('x24', lb=0, ub = 6.5)
 
 ''' Contraintes "égalité"  4 à 15 '''
-c1 = Constraint (0.6 * x1 + 0.4 * x2, lb = y1, ub = y1)
+c1 = Constraint (0.6*x1 + 0.4*x2, lb = y1, ub = y1)
 c2 = Constraint(0.6*x3 + 0.4*x4, lb = y2, ub = y2)
 c3 = Constraint(0.6*x5 + 0.4*x6, lb = y3, ub = y3)
 c4 = Constraint(0.6*x7 + 0.4*x8, lb = y4, ub = y4)
@@ -74,7 +75,30 @@ print("----------------------")
 
 for var_name, var in model.variables.items():
     print(var_name,"=",var.primal)
-    
+
+#indicepair == performance & indiceimpair== composition
+"""for indicepair, elt in enumerate(model.variables):
+    if indicepair % 2 == 0:
+        print(indicepair," ", model.variables[indicepair].primal)   
+
+print([model.variables[indiceP].primal for indiceP,elt in enumerate(model.variables) if indiceP % 2 == 0])
+"""
+
+exported_data = {'Status': model.status,
+                'Produit': ['a- Joone','b- Pamp. Prem','c- Pamp. Baby','d- Naty','e- Pamp. Activ.','f- Carref.Baby',
+                    'g- Lupilu','h- Mots d’enfants', 'i- Love & Green','j- Lotus Baby','k- Pommette',
+                    'l- Lillydoo '],
+                'Performance':[model.variables[indiceP].primal for indiceP,elt in enumerate(model.variables) if indiceP % 2 == 0],
+                'Composition':[model.variables[indiceI].primal for indiceI,elt in enumerate(model.variables) if indiceI % 2 != 0],
+                'Score': ['17,00','14,50','12,50','12,50','12,50','12,50','12,00',
+                          '12,00','9,50','9,50','9,50','6,50']
+}
+
+df = pd.DataFrame(exported_data, columns = ['Status','Produit','Performance','Composition','Score'])
+#df=df.drop(df.columns[[0]], axis=1, inplace=True)
+df.to_csv('Resultat.csv')
+
+
 #if(model.status == "infeasible"):
 #    print("Erreur : Classement non explicable par un modèle de type somme pondérée") 
     
