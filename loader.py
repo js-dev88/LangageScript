@@ -31,7 +31,7 @@ def buildCriteriaBaremedf(df_criteria_list, df_bareme):
 
 def buildCoeffList(df):
     
-    coeff = df['Coefficient'].copy()
+    coeff = df['Coefficient']
     coeff_list = list()
     for c in coeff:
         if not math.isnan(c):
@@ -39,7 +39,18 @@ def buildCoeffList(df):
     return coeff_list
 
 def parseDataframe(df):
-    
+     """
+    parse the dataframe from the excel file in usefull compenents
+
+    Args:
+        args1: a Dataframe
+
+    Return:
+        score : the score column
+        coeff_list : list of coefficient
+        df_criteria_list : a sub dataframe with Produits and criterias columns
+        df_criteria_bareme : a sub dataframe with the criterias columns and the boundaries of each value
+    """
     score  = df['Score'].copy()
     coeff_list = buildCoeffList(df)
     df_bareme = df[['Note','Min_value','Max_value']].copy()

@@ -69,7 +69,6 @@ def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, score)
                
 def createConstraint(list_of_parameter,score):
     
-    list_expr = list()
     for t in list_of_parameter:
         expr = t[0]* t[1]
         list_expr.append(expr)
