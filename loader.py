@@ -1,21 +1,49 @@
 import pandas as pd
+import math
 
-def checkAdditiveModel(csv_name, type='excel'):
+def loadModel(csv_name, type='excel'):
+    """
+    load a model from a csv or an excel file
+
+    Args:
+        args1: csv name if placed in the directory of the main class
+        args2: type (excel or csv)
+    Return:
+        the parsed file in dataframes and list
+    """
     if type == 'csv':
-        mydict = pd.read_csv(csv_name) 
+        df = pd.read_csv(csv_name) 
     elif type == 'excel':
-        mydict = pd.read_excel(csv_name) 
+        df = pd.read_excel(csv_name) 
+        
+    return parseDataframe(df)
+      
+def buildCriteriaBaremedf(df_criteria_list, df_bareme):
     
-    print(mydict)
-    prod = mydict['Produit']
-    print(prod)
-    perf = mydict['Performance']
-    print(perf)
-    comp = mydict['Composition']
-    print(comp)
-    score  = mydict['Score']
-    print(score)
+    df_criteria_bareme = df_criteria_list.copy()
+    
+    for criteria in df_criteria_list.iloc[:,1:]:
+        df_criteria_bareme = pd.merge(df_criteria_bareme, df_bareme, how='left', left_on=criteria, right_on=['Note'])
+        df_criteria_bareme = df_criteria_bareme.drop(['Note'],1)
+        df_criteria_bareme = df_criteria_bareme.rename(columns={'Min_value': f'Min_value_{criteria}', 'Max_value': f'Max_value_{criteria}'})
+    
+    return df_criteria_bareme
 
-checkAdditiveModel('input_couches.xlsx')    
-   
-  
+def buildCoeffList(df):
+    
+    coeff = df['Coefficient'].copy()
+    coeff_list = list()
+    for c in coeff:
+        if not math.isnan(c):
+            coeff_list.append(c)
+    return coeff_list
+
+def parseDataframe(df):
+    
+    score  = df['Score'].copy()
+    coeff_list = buildCoeffList(df)
+    df_bareme = df[['Note','Min_value','Max_value']].copy()
+    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
+    df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
+    
+    return score, coeff_list, df_bareme, df_criteria_list, df_criteria_bareme
