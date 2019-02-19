@@ -1,6 +1,7 @@
 from optlang import Model, Variable, Constraint, Objective
 import pandas as pd
 
+''' valeurs des f^a  à f^l, à récupérer depuis une liste et utilisé pour la question 2.2'''
 y1 = 17
 y2 = 14.5
 y3 = y4 = y5 = y6 = 12.5
