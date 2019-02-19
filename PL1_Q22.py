@@ -85,20 +85,23 @@ for var_name, var in model.variables.items():
 print([model.variables[indiceP].primal for indiceP,elt in enumerate(model.variables) if indiceP % 2 == 0])
 """
 
-exported_data = {'Status': model.status,
+if(model.status=="infeasible"):
+    exported_data = {'Status': model.status,
+                     'Message': 'Erreur : le classement n’est pas explicable par un modèle type somme pondérée'}
+    df = pd.DataFrame(exported_data, columns = ['Status','Message'],index=[0])
+                
+else:
+    exported_data = {'Status': model.status,
                 'Produit': ['a- Joone','b- Pamp. Prem','c- Pamp. Baby','d- Naty','e- Pamp. Activ.','f- Carref.Baby',
                     'g- Lupilu','h- Mots d’enfants', 'i- Love & Green','j- Lotus Baby','k- Pommette',
                     'l- Lillydoo '],
                 'Performance':[model.variables[indiceP].primal for indiceP,elt in enumerate(model.variables) if indiceP % 2 == 0],
                 'Composition':[model.variables[indiceI].primal for indiceI,elt in enumerate(model.variables) if indiceI % 2 != 0],
                 'Score': ['17,00','14,50','12,50','12,50','12,50','12,50','12,00',
-                          '12,00','9,50','9,50','9,50','6,50']
-}
+                          '12,00','9,50','9,50','9,50','6,50']}
+    df = pd.DataFrame(exported_data, columns = ['Status','Produit','Performance','Composition','Score'],index=[0])
 
-df = pd.DataFrame(exported_data, columns = ['Status','Produit','Performance','Composition','Score'])
-#df=df.drop(df.columns[[0]], axis=1, inplace=True)
-df.to_csv('Resultat.csv')
-
+df.to_csv('Resultat.csv',encoding='utf-8',index=False)
 
 #if(model.status == "infeasible"):
 #    print("Erreur : Classement non explicable par un modèle de type somme pondérée") 
