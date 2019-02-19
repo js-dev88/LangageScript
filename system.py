@@ -6,13 +6,12 @@ from sympy.parsing.sympy_parser import parse_expr
 from sympy import UnevaluatedExpr
 
 def checkAdditiveModel(csv_name, type='excel'):
-    model = linearProgramSolver('x1', 'max', 'Linear Program With Scores')
+    model = linearProgramSolver(csv_name, type, 'x1', 'max', 'Linear Program With Scores')
     displayModel(model)
     
 
-def linearProgramSolver(eval_expr, direction, model_name):
-    
-    score, coeff_list, df_bareme, df_criteria_list, df_criteria_bareme = loadModel('input_couches.xlsx', 'excel')
+def linearProgramSolver(csv_name, type, eval_expr, direction, model_name):
+    score, coeff_list, df_bareme, df_criteria_list, df_criteria_bareme = loadModel(csv_name, type)
     nb_criteria = len(df_criteria_list.columns)
     # variables definition
     variable_list = buildVariableDefinitionList(df_criteria_list, df_criteria_bareme)
@@ -81,4 +80,4 @@ def createConstraint(list_of_parameter,score):
     return constraint            
 
 
-checkAdditiveModel('input_couches.xlsx', type='excel')
+checkAdditiveModel('input_couches.xlsx')
