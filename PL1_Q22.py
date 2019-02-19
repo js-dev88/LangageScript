@@ -38,21 +38,6 @@ x23 = Variable ('x23', lb=10, ub = 12.5)
 x24 = Variable ('x24', lb=0, ub = 6.5)
 
 ''' Définitions des variables y == f^a...f^l des réels entre 0 et 20'''
-'''y1 = Variable ('y1', lb=0, ub = 20)
-y1=uniform(0,20);
-y2=uniform(0,20);
-y3=uniform(0,20);
-y4=uniform(0,20);
-y5=uniform(0,20);
-y6=uniform(0,20);
-y7=uniform(0,20);
-y8=uniform(0,20);
-y9=uniform(0,20);
-y10=uniform(0,20);
-y11=uniform(0,20);
-y12=uniform(0,20);'''
-#print("y1 : ", y1.dual)
-#print("y1.lb and y1.ub :", y1.lb, y1.ub)
 y1 = Variable ('y1', lb=0, ub = 20)
 y2 = Variable ('y2', lb=0, ub = 20)
 y3 = Variable ('y3', lb=0, ub = 20)
@@ -69,7 +54,6 @@ y12 = Variable ('y12', lb=0, ub = 20)
 
 
 ''' Contraintes "égalité"  4 à 15 '''
-<<<<<<< HEAD
 c1 = Constraint ((0.6 * x1 + 0.4 * x2)-y1, lb = 0, ub = 0)
 c2 = Constraint((0.6 * x3 + 0.4 * x4)-y2, lb = 0, ub = 0)
 c3 = Constraint((0.6 * x5 + 0.4 * x6)-y3, lb = 0, ub = 0)
