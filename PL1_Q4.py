@@ -1,6 +1,7 @@
 from optlang import Model, Variable, Constraint, Objective
 from random import *
 import pandas as pd
+from xlwt import Workbook
 
 ''' Définition des variables du modele  avec Contraintes "inégalités" 20 à 29'''
 x1 = Variable ('x1', lb=17, ub = 20)
@@ -43,7 +44,6 @@ y11 = Variable ('y11', lb=0, ub = 20)
 y12 = Variable ('y12', lb=0, ub = 20)
 
 
-
 ''' Contraintes "égalité"  4 à 15 '''
 c1 = Constraint ((0.6 * x1 + 0.4 * x2)-y1, lb = 0, ub = 0)
 c2 = Constraint((0.6 * x3 + 0.4 * x4)-y2, lb = 0, ub = 0)
@@ -71,6 +71,7 @@ c21 = Constraint(y8-y9, lb = 0.1) #Fin contrainte 18
 c22 = Constraint(y10-y11,lb=0,ub=0)
 c21 = Constraint(y11-y12, lb = 0.1) #Fin contrainte 19'''
 
+'''
 obj = Objective(y12, direction ='max')
 
 model = Model(name = 'Simple model')
@@ -84,7 +85,7 @@ print("----------------------")
 
 for var_name, var in model.variables.items():
     print(var_name,"=",var.primal)
-    
+ '''   
 ''' 
 #4.1 
 #RESULTATS OBTENUS en maximisant yn le score global de la couche n (n allant de 1 à 12 - a à l):
@@ -102,3 +103,36 @@ y10 (=fj) = 12.5
 y11 (=fk) = 12.5 
 y12 (=fl) = 10.1 
 '''
+
+# création wokrbook excel
+book = Workbook()
+
+# création de la feuille 1
+feuil1 = book.add_sheet('Ranking_Q4')
+
+# ajout des en-têtes
+feuil1.write(0,0,'couche')
+feuil1.write(0,1,'note')
+feuil1.write(0,2,'classement')
+
+notes = {"fa" : y1, "fb": y2, "fc" : y3,"fd" : y4, "fe" : y5, "ff" : y6, "fg" : y7, "fh" : y8, "fi" : y9, "fj" : y10, "fk" : y11, "fl" : y12}
+
+for key, value in notes.items():
+    obj = Objective(value, direction ='max')
+
+    model = Model(name = 'Simple model')
+    model.objective = obj
+    model.add([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12])
+    status = model.optimize()
+    notes[key] = model.objective.value
+
+i = 1
+j = 1 
+for key, value in sorted(notes.items(), key=lambda kv: (-kv[1], kv[0])):
+    feuil1.write(i,0, key)
+    feuil1.write(i,1, value)
+    feuil1.write(i,2, j)
+    i += 1
+    j += 1
+
+book.save('ranking_q4.xls')

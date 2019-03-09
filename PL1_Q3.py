@@ -1,6 +1,7 @@
 from optlang import Model, Variable, Constraint, Objective
 from random import *
 import pandas as pd
+from xlwt import Workbook
 
 ''' valeurs des f^a  à f^l, à récupérer depuis une liste et utilisé pour la question 2.2
 y1 = 17
@@ -86,14 +87,14 @@ model = Model(name = 'Simple model')
 model.objective = obj
 model.add([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c17, c18, c19, c21])
 status = model.optimize()
-    
+'''   
 print("status: ", model.status)
 print("objective value: ", model.objective.value)
 print("----------------------")
 
 for var_name, var in model.variables.items():
     print(var_name,"=",var.primal)
-
+'''
 
 #if(model.status == "infeasible"):
 #    print("Erreur : Classement non explicable par un modèle de type somme pondérée") 
@@ -104,3 +105,51 @@ for var_name, var in model.variables.items():
     
 ### 3.2 Le pire résultat pour LillyDoo est 6/20 et le meilleur résultat espéré est 10.1
 ###     y9 = 10.6, y11 = 10.2 et y12 = 10.1. Love & Green Pomette Lillydoo voient leurs note passer au dessus de 10.
+    
+# création wokrbook excel
+book = Workbook()
+
+# création de la feuille 1
+feuil1 = book.add_sheet('Ranking_Q3')
+
+# ajout des en-têtes
+feuil1.write(0,0,'couche')
+feuil1.write(0,1,'note')
+feuil1.write(0,2,'classement')
+
+notes = {"fa" : y1, "fb": y2, "fc" : y3,"fd" : y4, "fe" : y5, "ff" : y6, "fg" : y7, "fh" : y8, "fi" : y9, "fj" : y10, "fk" : y11, "fl" : y12}
+notes["fl"] = model.objective.value
+for var_name, var in model.variables.items():
+    if(var_name == "y1") :
+        notes["fa"] = var.primal
+    if(var_name == "y2") :
+        notes["fb"] = var.primal
+    if(var_name == "y3") :
+        notes["fc"] = var.primal
+    if(var_name == "y4") :
+        notes["fd"] = var.primal
+    if(var_name == "y5") :
+        notes["fe"] = var.primal
+    if(var_name == "y6") :
+        notes["ff"] = var.primal
+    if(var_name == "y7") :
+        notes["fg"] = var.primal
+    if(var_name == "y8") :
+        notes["fh"] = var.primal
+    if(var_name == "y9") :
+        notes["fi"] = var.primal
+    if(var_name == "y10") :
+        notes["fj"] = var.primal  
+    if(var_name == "y11") :
+        notes["fk"] = var.primal
+
+i = 1
+j = 1 
+for key, value in sorted(notes.items(), key=lambda kv: (-kv[1], kv[0])):
+    feuil1.write(i,0, key)
+    feuil1.write(i,1, value)
+    feuil1.write(i,2, j)
+    i += 1
+    j += 1
+
+book.save('ranking_q3.xls')
