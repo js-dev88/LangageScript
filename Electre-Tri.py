@@ -108,8 +108,8 @@ cpbiH = np.zeros((6, 12), dtype=int)#Matrice de concordance partielle de 12 lign
 cpHbi1 = np.zeros((12, 6), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
 cpbiH1= np.zeros((6,12), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
 
-CgHbi = np.zeros((12, 6), dtype=int) #Matrice de concordance globale
-CgbiH = np.zeros((6, 12), dtype=int) #Matrice de concordance globale
+CgHbi = np.zeros((12, 6), dtype=float) #Matrice de concordance globale
+CgbiH = np.zeros((6, 12), dtype=float) #Matrice de concordance globale
 
 SurcHbi= np.zeros((12,6), dtype=int)
 SurcbiH = np.zeros((6, 12),dtype=int) 
@@ -171,7 +171,8 @@ print("Matrice de concordance cComp(bi,H) partielle du critère Composition ",cp
 for i in range(0,CouchesPerf.size):
     for j in range(0,RefPerf.size):  
         CgHbi[i,j]=(k[0]*cpHbi[i,j]+ k[1]*cpHbi1[i,j])/(k[0]+k[1])
-        
+
+print(k[0]*cpHbi[2,2]+k[1]*cpHbi1[2,2])      
 print("Matrice de concordance GLOBALE Cg(H,bi)  ",CgHbi)
 #print (k[0]*cpHbi[0,1] +  k[1]*cpHbi1[0,1])
 
