@@ -98,10 +98,10 @@ k =[3/5 , 2/5] #Poids des critères
 categories = {"C1": "Inacceptable", "C2": "Insuffisant", "C3": "Acceptable", "C4":"Bon", "C5":"Très Bon"}
 
 CouchesPerf=np.array(["+++","++","+","+","+","++","++","+","++","++","++","+"])
-RefPerf=np.array(["---","-","+","++","+++","++++"])
+RefPerf=np.array(["++++","+++","++","+","-","---"])
 
 CouchesCompo=np.array(["+++","++","+++","+++","+","+","-","-","-","--","--","--"])
-RefCompo=np.array(["---","-","+","++","+++","++++"])
+RefCompo=np.array(["++++","+++","++","+","-","---"])
 
 cpHbi = np.zeros((12, 6), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
 cpbiH = np.zeros((6, 12), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
@@ -204,7 +204,7 @@ Categorie=""
 def Evalpessimiste():
     for i in range(0,CouchesPerf.size):
         for j in range(0,RefPerf.size):
-            while SurcHbi[i,j]==0 :
+            if SurcHbi[i,j]==0 :
                 continue
             else: 
                 AffectationPessimiste.append("C"+str(6-j))
