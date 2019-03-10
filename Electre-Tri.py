@@ -129,8 +129,8 @@ def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle re
         
     return comparator
 
-print(comparesTo(CouchesPerf[0],RefPerf[5]))
-print(comparesTo(CouchesPerf[0],RefPerf[1]))
+#print(comparesTo(CouchesPerf[0],RefPerf[5]))
+# print(comparesTo(CouchesPerf[0],RefPerf[1]))
 
 
 #Calculer la matrice de concordance partielle du critère Performance
@@ -170,14 +170,14 @@ print("Matrice de concordance cComp(bi,H) partielle du critère Composition ",cp
 #Calculer la matrice de concordance globale
 for i in range(0,CouchesPerf.size):
     for j in range(0,RefPerf.size):  
-        CgHbi[i,j]=k[0]*cpHbi[i,j]+ k[1]*cpHbi1[i,j]
+        CgHbi[i,j]=(k[0]*cpHbi[i,j]+ k[1]*cpHbi1[i,j])/(k[0]+k[1])
         
 print("Matrice de concordance GLOBALE Cg(H,bi)  ",CgHbi)
 #print (k[0]*cpHbi[0,1] +  k[1]*cpHbi1[0,1])
 
 for j in range(0,RefPerf.size):
     for i in range(0,CouchesPerf.size):
-        CgbiH[j,i]=k[0]*cpbiH[j,i]+ k[1]*cpbiH1[j,i]
+        CgbiH[j,i]=k[0]*cpbiH[j,i]+ k[1]*cpbiH1[j,i]/(k[0]+k[1])
         
 print("Matrice de concordance GLOBALE Cg(H,bi) ",CgbiH)
 
@@ -196,11 +196,11 @@ def SurclassementbiH(lamda):
 
     return SurcbiH
             
-SurclassementHbi(0.75)
-SurclassementbiH(0.75)
+SurclassementHbi(0.55)
+SurclassementbiH(0.55)
 
-print("Matrice de surclassement (H,bi)",SurclassementHbi(0.75))
-print("Matrice de surclassement (bi,H)",SurclassementbiH(0.75))
+print("Matrice de surclassement (H,bi)",SurclassementHbi(0.55))
+print("Matrice de surclassement (bi,H)",SurclassementbiH(0.55))
 
 #Procédure pessimiste
 Categorie=""
