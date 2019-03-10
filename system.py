@@ -44,7 +44,7 @@ def displayModel(model):
 def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme):
 
     i=0
-    variable_list = list()
+    variable_list = []
     for _, row in df_criteria_bareme.iterrows():
         for criteria in df_criteria_list.iloc[:,1:]:
             i+=1
@@ -54,7 +54,7 @@ def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme):
 
 def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, score):
     
-    constraint_list = list()
+    constraint_list = []
     cons_num = 0
     for var_num in range(1,len(variable_list),nb_criteria-1):
         var_index = var_num
