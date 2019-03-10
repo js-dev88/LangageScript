@@ -95,7 +95,7 @@ print("status: ", obj.direction)
 
 
 k =[3/5 , 2/5] #Poids des critères 
-categories = {"C1": "Inacceptable", "C2": "Insuffisant", "C3": "Acceptable", "C4":"Bon", "C5":"Très Bon"}
+categories = {"C1": "Très Insuffisant", "C2": "Insuffisant", "C3": "Acceptable", "C4":"Bon", "C5":"Très Bon"}
 
 CouchesPerf=np.array(["+++","++","+","+","+","++","++","+","++","++","++","+"])
 RefPerf=np.array(["++++","+++","++","+","-","---"])
@@ -196,8 +196,11 @@ def SurclassementbiH(lamda):
 
     return SurcbiH
             
-print("Matrice de surclassement (H,bi)",SurclassementHbi(0.5))
-print("Matrice de surclassement (bi,H)",SurclassementbiH(0.5))
+SurclassementHbi(0.75)
+SurclassementbiH(0.75)
+
+print("Matrice de surclassement (H,bi)",SurclassementHbi(0.75))
+print("Matrice de surclassement (bi,H)",SurclassementbiH(0.75))
 
 #Procédure pessimiste
 Categorie=""
@@ -207,11 +210,14 @@ def Evalpessimiste():
             if SurcHbi[i,j]==0 :
                 continue
             else: 
-                AffectationPessimiste.append("C"+str(6-j))
+                AffectationPessimiste.append(categories.get("C"+str(6-j)))
                 break
 
                 
     return AffectationPessimiste
 
 print(Evalpessimiste())
+
+
+
 #Procédure optimiste
