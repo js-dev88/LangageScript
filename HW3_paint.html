@@ -1,0 +1,268 @@
+<html>
+<head> 
+        <title> Read coordinates </title> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+        <script>
+
+
+                window.onload = init;
+
+                var canv;
+                var ctx;
+                var X;
+                var Y;
+                var choice;
+                var color;
+                var started = false;
+                var painting = false;
+
+                function init(){
+    //document.getElementById("mycanvas").addEventListener("mousedown",handleMouseMove);
+    document.getElementById("mycanvas").addEventListener("mouseup",handleMouseUp);
+    document.getElementById("mycanvas").addEventListener("mousemove",handleMouseMove);
+    document.getElementById("mycanvas").addEventListener("mousedown",handleMouseDown);
+
+    canv = document.getElementById("mycanvas");
+    ctx = canv.getContext("2d");
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,canv.width,canv.height);
+   /* initColor("red");
+    initColor("blue");
+    initColor("pink");*/
+}
+
+/*function initColor(c){
+    var b = document.getElementById(c);
+    var ctxb= b.getContext("2d");
+    ctxb.fillStyle=c;
+    ctxb.fillRect(0,0,b.width,b.height);
+
+}*/
+
+/**
+* /EVENT MOUSEMOVE/ Recupere les coordonnees de la souris
+*/
+function handleMouseMove(e){
+
+        var rect = canv.getBoundingClientRect();
+        X  = e.clientX - rect.left;
+        Y = e.clientY - rect.top;
+
+        document.getElementById("x").value = X;
+        document.getElementById("y").value = Y;
+        if(document.getElementById("Pencil").checked===true){
+        if(painting===true){
+                paint();
+        }
+        }
+
+
+}
+/**
+* /EVENT MOUSEDOWN/ Recupere les coordonnees quand on presse le click
+*/
+function handleMouseDown(e){
+
+        var rect = canv.getBoundingClientRect();
+        X  = e.clientX - rect.left;
+        Y = e.clientY - rect.top;
+
+        document.getElementById("x3").value = X;
+        document.getElementById("y3").value = Y;
+        if(document.getElementById("Pencil").checked===true)
+        {
+                
+                painting= true;
+        }
+
+}
+
+/**
+* /EVENT MOUSEUP/ Lorsqu'on relâche la souris
+*/
+function handleMouseUp(e){
+
+        if(!canv.getContext){return;}
+        if(document.getElementById("Pencil").checked===false){
+                paint();
+        }
+        painting = false;
+        started = false;
+
+}
+
+function paint(){
+
+        var ctx=canv.getContext("2d");
+        var dx = document.getElementById("x3").value;
+        var dy = document.getElementById("y3").value;
+        var fx = document.getElementById("x").value ;
+        var fy = document.getElementById("y").value ;
+
+
+        if(document.getElementById("Ligne").checked===true)
+                {drawLigne(dx,dy,fx,fy,ctx);
+                }
+                else if(document.getElementById("Rectangle").checked===true)
+                {
+                        drawRectangle(dx,dy,fx,fy,ctx);
+                }
+                else if(document.getElementById("Cercle").checked===true){
+                        drawCercle(dx,dy,fx,fy,ctx);
+                }
+                else if(document.getElementById("Pencil").checked===true){
+                        console.log("choice = Pencil");
+                        drawPencil(dx,dy,fx,fy,ctx);
+                }
+
+                else {
+
+                }
+        }
+/**
+* Fonction pour dessiner une ligne 
+*/
+function drawLigne(dx, dy, fx, fy,ctx){
+        console.log("color " + color);
+        ctx.strokeStyle = document.getElementById("color").value;
+        ctx.beginPath();
+    ctx.moveTo(dx,dy); //x
+    ctx.lineTo(fx,fy); //x,y
+    ctx.lineWidth = document.getElementById("thickness").value;
+    ctx.closePath();
+    ctx.stroke();
+}
+
+/**
+* Fonction pour dessiner une cercle enfin a refaire bien hihi
+*/
+function drawCercle(dx, dy, fx, fy,ctx){
+        if(!canv.getContext){return;}
+        ctx.strokeStyle = document.getElementById("color").value;
+        ctx.beginPath();
+        var radius = (Math.sqrt(Math.pow((fx-dx),2) + Math.pow((fy-dy),2)))/2;
+        ctx.arc( parseInt(dx) + ((parseInt(fx)-parseInt(dx))/2), parseInt(dy) + ((parseInt(fy)-parseInt(dy))/2),radius,0,2*Math.PI);
+        ctx.lineWidth = document.getElementById("thickness").value;
+        ctx.stroke();
+        var somme = parseInt(dx) + radius;
+        console.log("dx + radius " + somme);
+        somme = parseInt(dy)+radius;
+        console.log("dy + radius " + somme);
+
+}
+
+
+/**
+* Fonction pour dessiner 
+*/
+function drawRectangle(dx,dy,fx,fy,ctx){
+        if(!canv.getContext){return;}
+        console.log("color " + color);
+        ctx.strokeStyle = document.getElementById("color").value;
+        ctx.rect( dx,dy,fx-dx,fy-dy);
+        ctx.lineWidth = document.getElementById("thickness").value;
+        ctx.stroke();
+}
+
+
+/**
+* Fonction pour dessiner une ligne 
+*/
+function drawPencil(dx, dy, fx, fy,ctx){
+        console.log("debut DrawPencil");
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        ctx.strokeStyle = document.getElementById("color").value;
+        // Si c'est le dÃ©but, j'initialise
+                if (!started) {
+                        // Je place mon curseur pour la premiÃ¨re fois :
+                        ctx.beginPath();
+                        ctx.moveTo(dx, dy);
+                        started = true;
+                } 
+
+                // Sinon je dessine
+                else {
+                        ctx.lineTo(fx, fy);
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = document.getElementById("thickness").value;
+                        ctx.stroke();
+                }
+
+    console.log("fin DrawPencil");
+}   
+
+// Clear du Canvas :
+function clear_canvas() {
+        ctx.clearRect(0,0, canv.width, canv.height);
+}
+
+function add(){
+        document.getElementById("thickness").value = parseInt(document.getElementById("thickness").value) + 1;
+}
+function minus(){
+        if(parseInt(document.getElementById("thickness").value)===0){
+        }
+        else{
+                document.getElementById("thickness").value = parseInt(document.getElementById("thickness").value) - 1;
+        }
+}
+</script>
+<!--<script>
+$(document).ready(function() {
+$(div='color').$('canvas').click(function(){
+    color = $(this)[0].getContext("2d").fillStyle;
+    console.log("color " + color);
+
+   // var ctxb = $(this)[0].getContext("2d");
+    //ctxb.fillStyle="black";
+    //ctxb.fillRect(0,0,$(this)[0].width,$(this)[0].height);
+
+});
+}); 
+</script>*-->
+
+
+<table border="1">
+        <tr>
+                <th> Canvas </th>
+                <th> Tools </th>
+        </tr>
+        <!-- Canvas --> 
+        <tr>
+                <td>
+                        <canvas id="mycanvas" width="500" height="500" > This is not supported!</canvas> <br />
+                </td>
+                <td>
+                        X=<input type="text" readonly="readonly" id="x" value="" /> <br />
+                        Y=<input type="text" readonly="readonly" id="y" value="" /><br />
+                        X2=<input type="text" readonly="readonly" id="x2" value="" /> <br />
+                        Y2=<input type="text" readonly="readonly" id="y2" value="" /><br />
+                        X3=<input type="text" readonly="readonly" id="x3" value="" /> <br />
+                        Y3=<input type="text" readonly="readonly" id="y3" value="" /><br />
+
+                        Color: <input type="text" id="color" value="black" /> <br />
+
+                        Thickness: <input type="number" readonly = "readonly" id="thickness" value = 1 /> <br />
+                        <input type="button" value="+" onclick="add()">  <input type="button" value="-" onclick="minus()">  </br>
+                        <input type="radio" id="Select" name ="tool" value="Select" checked = "checked" /> Select <br />
+                        <input type="radio" id=Pencil  name ="tool" value="Pencil"/> Pencil <br />
+                        <input type="radio" id="Ligne"  name ="tool" value="Ligne"  /> Line <br />
+                        <input type="radio" id="Rectangle"  name ="tool" value="Rectangle" /> Rectangle <br />
+                        <input type="radio" id = "Cercle"  name ="tool" value="Cercle" /> Cycle <br />
+                        <input type="button"  id= "Clear" value="Clear" onclick="clear_canvas();" /><br />
+
+
+                </td>
+
+        </tr>
+
+</table>
+
+</body>
+</html>
+
