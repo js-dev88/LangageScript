@@ -115,6 +115,7 @@ SurcHbi= np.zeros((12,6), dtype=int)
 SurcbiH = np.zeros((6, 12),dtype=int) 
 
 AffectationPessimiste =[] 
+AffectationOptimiste =[]
 
 comparator=False
 def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle retourne "False"
@@ -204,7 +205,6 @@ print("Matrice de surclassement (H,bi)",SurclassementHbi(0.55))
 print("Matrice de surclassement (bi,H)",SurclassementbiH(0.55))
 
 #Procédure pessimiste
-Categorie=""
 def Evalpessimiste():
     for i in range(0,CouchesPerf.size):
         for j in range(0,RefPerf.size):
@@ -217,8 +217,21 @@ def Evalpessimiste():
                 
     return AffectationPessimiste
 
-print(Evalpessimiste())
+print("Affectation pessimiste : ",Evalpessimiste())
 
 
 
 #Procédure optimiste
+'''def Evaloptimiste():
+    for i in range(0,CouchesPerf.size):
+        for j in range(RefPerf.size-1,1):
+            if SurcbiH[j,i]==1 and SurcHbi[i,j]==0 :
+                AffectationOptimiste.append(categories.get("C"+str(j-1)))
+                break 
+            else:
+                continue
+
+                
+    return AffectationOptimiste
+
+print("Affectation optimiste : ",Evaloptimiste())'''
