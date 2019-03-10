@@ -2,6 +2,7 @@ from optlang import Model, Variable, Constraint, Objective
 from random import *
 import pandas as pd
 from xlwt import Workbook
+from spearman_kendall_coef import RankingCompareSpearman, RankingCompareKendall
 
 ''' Définition des variables du modele  avec Contraintes "inégalités" 20 à 29'''
 x1 = Variable ('x1', lb=17, ub = 20)
@@ -113,7 +114,6 @@ feuil1 = book.add_sheet('Ranking_Q4')
 # ajout des en-têtes
 feuil1.write(0,0,'couche')
 feuil1.write(0,1,'note')
-feuil1.write(0,2,'classement')
 
 notes = {"fa" : y1, "fb": y2, "fc" : y3,"fd" : y4, "fe" : y5, "ff" : y6, "fg" : y7, "fh" : y8, "fi" : y9, "fj" : y10, "fk" : y11, "fl" : y12}
 
@@ -127,12 +127,25 @@ for key, value in notes.items():
     notes[key] = model.objective.value
 
 i = 1
-j = 1 
-for key, value in sorted(notes.items(), key=lambda kv: (-kv[1], kv[0])):
+for key, value in sorted(notes.items(),  key=lambda kv: kv[0]):
     feuil1.write(i,0, key)
     feuil1.write(i,1, value)
-    feuil1.write(i,2, j)
     i += 1
-    j += 1
 
-book.save('ranking_q4.xls')
+ranking_q4 = "ranking_q4.xls"
+book.save(ranking_q4)
+
+magazine_input ="input_couches.xlsx"
+Data_Ranking = pd.read_excel(magazine_input ,sheet_name ='Feuil1')
+
+Data_RankingQ4 = pd.read_excel(ranking_q4)
+rank1 =Data_Ranking['Score'] 
+rank2 = Data_RankingQ4['note']
+
+############# SpearMan Q3###############
+coef ,p = RankingCompareSpearman(rank1,rank2)
+############# Kendall Q3 ################
+tau , p_val = RankingCompareKendall(rank1,rank2)
+
+print ("Spearman :\ncoef :", coef, "\np :", p, "\n\n")
+print ("Kendall :\ntau :", tau, "\np_val :", p_val)
