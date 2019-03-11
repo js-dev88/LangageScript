@@ -173,7 +173,7 @@ for i in range(0,CouchesPerf.size):
     for j in range(0,RefPerf.size):  
         CgHbi[i,j]=(k[0]*cpHbi[i,j]+ k[1]*cpHbi1[i,j])/(k[0]+k[1])
 
-print(k[0]*cpHbi[2,2]+k[1]*cpHbi1[2,2])      
+#print(k[0]*cpHbi[2,2]+k[1]*cpHbi1[2,2])      
 print("Matrice de concordance GLOBALE Cg(H,bi)  ",CgHbi)
 #print (k[0]*cpHbi[0,1] +  k[1]*cpHbi1[0,1])
 
@@ -198,8 +198,8 @@ def SurclassementbiH(lamda):
 
     return SurcbiH
             
-SurclassementHbi(0.55)
-SurclassementbiH(0.55)
+SurclassementHbi(0.75)
+SurclassementbiH(0.75)
 
 print("Matrice de surclassement (H,bi)",SurclassementHbi(0.55))
 print("Matrice de surclassement (bi,H)",SurclassementbiH(0.55))
@@ -210,28 +210,29 @@ def Evalpessimiste():
         for j in range(0,RefPerf.size):
             if SurcHbi[i,j]==0 :
                 continue
-            else: 
+            elif SurcHbi[i,j]==1 and j==0:
+                AffectationPessimiste.append(categories.get("C"+str(5)))
+            else:
                 AffectationPessimiste.append(categories.get("C"+str(6-j)))
                 break
 
                 
     return AffectationPessimiste
-
+#je ne traite pas le cas où j'ai que des 0 ? Ce cas est-il possible déjà ? 
 print("Affectation pessimiste : ",Evalpessimiste())
 
 
-
 #Procédure optimiste
-'''def Evaloptimiste():
+def Evaloptimiste():
     for i in range(0,CouchesPerf.size):
         for j in range(RefPerf.size-1,1):
-            if SurcbiH[j,i]==1 and SurcHbi[i,j]==0 :
-                AffectationOptimiste.append(categories.get("C"+str(j-1)))
-                break 
-            else:
+            if SurcbiH[j,i]==0:
                 continue
-
+            elif SurcbiH[j,i]==1 and SurcHbi[i,j]==0:
+                AffectationOptimiste.append(categories.get("C"+str(6-j-1)))
+                break 
+                
                 
     return AffectationOptimiste
 
-print("Affectation optimiste : ",Evaloptimiste())'''
+print("Affectation optimiste : ",Evaloptimiste())
