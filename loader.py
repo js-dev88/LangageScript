@@ -1,24 +1,64 @@
 import pandas as pd
 import math
 
-def loadModel(csv_name, type='excel'):
+def loadModel(file_name, type='excel'):
     """
-    load a model from a csv or an excel file
+    Charge un model depuis un fichier excel ou csv.
+    Le fichier excel doit respecter le format fournit en exemple
 
     Args:
-        args1: csv name if placed in the directory of the main class
-        args2: type (excel or csv)
+        file_name: le nom du fichier placé dans le répertoire data
+        type: le type de fichier ('excel' ou 'csv')
     Return:
-        the parsed file in dataframes and list
+        le fichier découpé selon les différents éléments
     """
     if type == 'csv':
-        df = pd.read_csv(csv_name) 
+        df = pd.read_csv(f'data/{file_name}') 
     elif type == 'excel':
-        df = pd.read_excel(csv_name) 
+        df = pd.read_excel(f'data/{file_name}') 
         
     return parseDataframe(df)
+
+def parseDataframe(df):
+    """
+    Découpe le fichier en élements utiles
+
+    Args:
+        df: un DataFrame
+
+    Return:
+        df_score : la colonne score
+        coeff_list : la liste des coefficients
+        df_criteria_list : un Dataframe avec les colonnes produits 
+            et les colonnes de critères
+        df_criteria_bareme : un Dataframe avec les colonnes de critères
+            et leurs bornes respectives por chaque lignes
+        dict_boundaries : un Dict avec les valeurs min et max du barème
+    """
+    
+    df_score  = df['Score'].copy()
+    coeff_list = buildCoeffList(df)
+    df_bareme = df[['Note','Min_value','Max_value']].copy()
+    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
+    df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
+    dict_boundaries = {}
+    dict_boundaries['min'] = df_bareme['Min_value'].min()
+    dict_boundaries['max'] = df_bareme['Max_value'].max()
+
+    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries
       
 def buildCriteriaBaremedf(df_criteria_list, df_bareme):
+    """
+    Pour chaque colonne de critères, rajoute les bornes min et max de 
+        la valeur qualitative du critère
+        
+    Args:
+        df_criteria_list: un DataFrame avec les valeurs quantitatives des critères
+        df_bareme: un Dataframe avec les bornes min et max (le barème)
+    
+    Return: un Dataframe avec les colonnes de critères
+            et leurs bornes respectives por chaque lignes
+    """
     
     df_criteria_bareme = df_criteria_list.copy()
     
@@ -30,32 +70,21 @@ def buildCriteriaBaremedf(df_criteria_list, df_bareme):
     return df_criteria_bareme
 
 def buildCoeffList(df):
+    """
+    Récupère la liste des coefficients
+        
+    Args:
+        df: Le Dataframe correspondant au fichier d'entrée
     
+    Return: une liste de coefficient
+    """
+     
     coeff = df['Coefficient']
-    coeff_list = list()
+    coeff_list = []
     for c in coeff:
         if not math.isnan(c):
             coeff_list.append(c)
+            
     return coeff_list
 
-def parseDataframe(df):
-    """
-    parse the dataframe from the excel file in usefull compenents
 
-    Args:
-        args1: a Dataframe
-
-    Return:
-        score : the score column
-        coeff_list : list of coefficient
-        df_criteria_list : a sub dataframe with Produits and criterias columns
-        df_criteria_bareme : a sub dataframe with the criterias columns and the boundaries of each value
-    """
-    
-    score  = df['Score'].copy()
-    coeff_list = buildCoeffList(df)
-    df_bareme = df[['Note','Min_value','Max_value']].copy()
-    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
-    df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
-    
-    return score, coeff_list, df_criteria_list, df_criteria_bareme

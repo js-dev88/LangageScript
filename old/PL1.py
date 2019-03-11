@@ -53,7 +53,8 @@ print("----------------------")
 
 for var_name, var in model.variables.items():
     print(var_name,"=",var.primal)
-    
+
+print(model)
 #if(model.status == "infeasible"):
 #    print("Erreur : Classement non explicable par un modèle de type somme pondérée") 
     
