@@ -4,12 +4,7 @@ import pandas as pd
 import math
 
 
-def checkAdditiveModel(csv_name, eval_expr, direction, type='excel', with_scores=True):
-    
-    if with_scores:
-        model_name = 'programme lineaire avec notes'
-    else:
-        model_name = 'programme lineaire sans note'
+def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=True):
         
     model = linearProgramSolver(csv_name, type, eval_expr, direction , model_name, with_scores)
     
