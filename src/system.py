@@ -4,9 +4,9 @@ import pandas as pd
 import math
 
 
-def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=True):
+def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=True, update_model=None):
         
-    model = linearProgramSolver(csv_name, type, eval_expr, direction , model_name, with_scores)
+    model = linearProgramSolver(csv_name, type, eval_expr, direction , model_name, with_scores,update_model)
     
     if model.status == 'infeasible':
         print(f'Le {model.name} du fichier {csv_name} n\'admet pas de solution')
@@ -18,7 +18,7 @@ def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel',
     print(model)
     
 
-def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_scores):
+def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_scores, update_model=None):
     
     df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries = loadModel(csv_name, type)
     
@@ -30,9 +30,16 @@ def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_s
     variable_list['variable_list_x'] = variable_list_x
     variable_list['variable_list_y'] = variable_list_y
     
+    #Modification des variables si nécessaire
+    if update_model is not None:
+        variable_list = update_variable_list_from_dict(update_model['variable'], variable_list)
     # constraint definition
     constraint_list = buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, df_score, with_scores)
     
+    #Modification des contraintes si nécessaire
+    if update_model is not None:
+        constraint_list = update_constraint_list_from_dict(update_model['constraint'], constraint_list)
+        
     #objective definition
     for var in variable_list_x + variable_list_y:
         if var.name == eval_expr:
@@ -43,6 +50,27 @@ def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_s
     
     return model
 
+def update_variable_list_from_dict(update_model, variable_list):
+    if len(update_model['upd']) > 0:
+        for var_to_update in update_model['upd']:
+            for k, v in variable_list.items():
+                for idx, var in enumerate(v):
+                    if var_to_update.name == var.name:
+                        v[idx] = var_to_update
+                        print(var)
+                        print(var)
+                        
+    return variable_list
+                    
+def update_constraint_list_from_dict(update_model, constraint_list):
+    if len(update_model['del']) > 0:
+        for constraint_to_del in update_model['del']:
+            for constraint in constraint_list:
+                if constraint_to_del == constraint.name:
+                   constraint_list.remove(constraint)
+                    
+    return constraint_list
+    
 def buildModel(constraint_list, obj, model_name):
     
     model = Model(name = model_name)
