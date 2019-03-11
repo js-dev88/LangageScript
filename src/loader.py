@@ -13,9 +13,9 @@ def loadModel(file_name, type='excel'):
         le fichier découpé selon les différents éléments
     """
     if type == 'csv':
-        df = pd.read_csv(f'data/{file_name}') 
+        df = pd.read_csv(f'../data/{file_name}')
     elif type == 'excel':
-        df = pd.read_excel(f'data/{file_name}') 
+        df = pd.read_excel(f'../data/{file_name}')
         
     return parseDataframe(df)
 
