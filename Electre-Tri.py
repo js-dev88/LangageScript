@@ -103,6 +103,8 @@ RefPerf=np.array(["++++","+++","++","+","-","---"])
 CouchesCompo=np.array(["+++","++","+++","+++","+","+","-","-","-","--","--","--"])
 RefCompo=np.array(["++++","+++","++","+","-","---"])
 
+DonneesMagazine=["C5","C4","C3","C3","C3","C3","C3","C3","C2","C2","C2","C1"]
+
 cpHbi = np.zeros((12, 6), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
 cpbiH = np.zeros((6, 12), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
 cpHbi1 = np.zeros((12, 6), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
@@ -116,6 +118,7 @@ SurcbiH = np.zeros((6, 12),dtype=int)
 
 AffectationPessimiste =[] 
 AffectationOptimiste =[]
+
 
 comparator=False
 def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle retourne "False"
@@ -201,8 +204,8 @@ def SurclassementbiH(lamda):
 SurclassementHbi(0.75)
 SurclassementbiH(0.75)
 
-print("Matrice de surclassement (H,bi)",SurclassementHbi(0.55))
-print("Matrice de surclassement (bi,H)",SurclassementbiH(0.55))
+print("Matrice de surclassement (H,bi)",SurclassementHbi(0.75))
+print("Matrice de surclassement (bi,H)",SurclassementbiH(0.75))
 
 #Procédure pessimiste
 def Evalpessimiste():
@@ -212,6 +215,7 @@ def Evalpessimiste():
                 continue
             elif SurcHbi[i,j]==1 and j==0:
                 AffectationPessimiste.append(categories.get("C"+str(5)))
+                break
             else:
                 AffectationPessimiste.append(categories.get("C"+str(6-j)))
                 break
@@ -224,15 +228,32 @@ print("Affectation pessimiste : ",Evalpessimiste())
 
 #Procédure optimiste
 def Evaloptimiste():
+    #CHAOS ne marche pas 
     for i in range(0,CouchesPerf.size):
         for j in range(RefPerf.size-1,1):
             if SurcbiH[j,i]==0:
                 continue
             elif SurcbiH[j,i]==1 and SurcHbi[i,j]==0:
-                AffectationOptimiste.append(categories.get("C"+str(6-j-1)))
-                break 
-                
-                
+                AffectationOptimiste.append(categories.get("C"+str(6-j-1)))                
+                break
+            
     return AffectationOptimiste
 
 print("Affectation optimiste : ",Evaloptimiste())
+
+IMauvC=0
+
+
+def CompareClassification():
+    global IMauvC 
+    #Il faut retourner une exception dans le cas où les deux listes ne sont pas de la même taille
+    for i in range(len(AffectationPessimiste)):
+        if list(categories.keys())[list(categories.values()).index(AffectationPessimiste[i])]!=DonneesMagazine[i] :
+            IMauvC +=1
+    
+    return IMauvC
+                
+
+print("Taux de mauvaise classification sur la méthode pessimiste : ", (CompareClassification()/len(AffectationPessimiste))*100,"%" )
+
+    
