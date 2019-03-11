@@ -19,6 +19,7 @@ def checkAdditiveModel(csv_name, eval_expr, direction, type='excel', with_scores
     else:
         displayModel(model)
         """TODO export in excel"""
+    print('-----------------------------------------------------')
     print(model)
     
 
