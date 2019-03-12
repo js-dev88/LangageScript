@@ -13160,9 +13160,114 @@ composition avec des poids respectifs de 60% et 40 %.</p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A la lecture du classement publié, il semble clair, pour un consommateur, que le score global donné à chaque produit
+résulte d’une moyenne pondérée (somme pondérée) de ses évaluations sur les deux critères performance et composition.
+L’objectif dans cette partie est de vérifier l’exactitude ou non de cette hypothèse.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pour cela, nous allons associer un nombre réel positif à chaque évaluation qualitative attribuée à un produit. Ainsi, pour
+le produit “Joone” représenté par la lettre a sur le Tableau 1, si son score de 17/20 est obtenu à partir d’une somme
+pondérée notée f, alors il existe des nombres réels positifs U1a(+++) ∈ [17, 20] et U2a(+++) ∈ [17, 20] tels que</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><p style="text-align: center;">f(a) = 0.6 U1a(+++) + 0.4 U2a(+++) = 17</p></strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Plus généralement, pour un produit x dont le score global f(x) est donné par une somme pondérée f, si on note Uix(αix)
+le nombre réel associé à l’évaluation qualitative αix du produit x sur le critère i (la valeur qualitative αix étant donnée
+par le magazine), alors on aura</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><p style="text-align: center;">f(x) = 0.6 U1x(α1x) + 0.4 U2x(α2x)</p></strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pour déterminer si le classement des couches-culottes, fourni par le magazine, est compatible avec un modèle d’évaluation
+basé sur la somme pondérée, il nous suffit alors de résoudre le programme linéaire PL1 suivant (un système d’inéquations
+linéaires est suffisant pour ce test) :</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../files/pl.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>où</p>
+<ul>
+<li>La fonction objectif donnée par l’équation (3) consiste, ici, à maximiser le nombre réel U1a(+++) associé à l’évaluation de la couche-culotte “Joone” sur le critère Performance. En réalité, étant donné que nous cherchons simplement à satisfaire les contraintes de ce programme linéaire, le choix de n’importe quelle fonction objectif suffira à résoudre notre problème. En clair le choix de la fonction objectif de PL1 est arbitraire.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Les contraintes (4) à (15) correspondent à l’écriture sous forme de somme pondérée, comme dans la formule 2 ci-dessus, des 12 produits à évaluer.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Les contraintes (16) à (19) correspondent à l’ordre établi dans le classement des 12 produits du magazine. A noter que la valeur 0.1, dans certains de ces contraintes, permet simplement de satisfaire une inégalité stricte, en termesde notes globales, entre certains produits.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Les contraintes (20) à (29) permettent d’assurer l’appartenance de chaque nombre réel Uix(αix) à un intervalle lié à la note qualitative αix telle que donnée par le magazine.</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -13186,7 +13291,7 @@ composition avec des poids respectifs de 60% et 40 %.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">src.system</span> <span class="k">import</span> <span class="n">checkAdditiveModel</span>
@@ -13219,7 +13324,7 @@ produit (pour chaque critère d’évaluation), ainsi que la valeur de la somme 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.2-Test-de-la-fonction-avec-le-classement-des-couches-culottes">1.2 Test de la fonction avec le classement des couches-culottes<a class="anchor-link" href="#1.2-Test-de-la-fonction-avec-le-classement-des-couches-culottes">&#182;</a></h3>
+<h2 id="1.2">1.2<a class="anchor-link" href="#1.2">&#182;</a></h2><h3 id="1.2.1-Test-de-la-fonction-avec-le-classement-des-couches-culottes">1.2.1 Test de la fonction avec le classement des couches-culottes<a class="anchor-link" href="#1.2.1-Test-de-la-fonction-avec-le-classement-des-couches-culottes">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13233,10 +13338,10 @@ produit (pour chaque critère d’évaluation), ainsi que la valeur de la somme 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>   <span class="n">checkAdditiveModel</span><span class="p">(</span><span class="n">csv_name</span><span class="o">=</span><span class="s1">&#39;../data/data_couches_original.xlsx&#39;</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span>   <span class="n">checkAdditiveModel</span><span class="p">(</span><span class="n">csv_name</span><span class="o">=</span><span class="s1">&#39;./data/data_couches_original.xlsx&#39;</span><span class="p">,</span>
                       <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;Programme Lineaire - Classement Couches-culottes avec notes&#39;</span><span class="p">,</span>
                       <span class="n">eval_expr</span><span class="o">=</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span>
                       <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">)</span>
@@ -13256,10 +13361,10 @@ produit (pour chaque critère d’évaluation), ainsi que la valeur de la somme 
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Le programme lineaire avec notes du fichier ./data/data_couches_original.xlsx n&#39;admet pas de solution
+<pre>Le Programme Lineaire - Classement Couches-culottes avec notes du fichier ./data/data_couches_original.xlsx n&#39;admet pas de solution
 Scores : True
 -----------------------------------------------------
-\* Problem: programme lineaire avec notes *\
+\* Problem: Programme Lineaire - Classement Couches-culottes avec notes *\
 
 Maximize
  obj: + x1
@@ -13293,16 +13398,16 @@ Bounds
  10 &lt;= x12 &lt;= 12.5
  13 &lt;= x13 &lt;= 16.5
  7 &lt;= x14 &lt;= 9.5
- 7 &lt;= x16 &lt;= 9.5
  10 &lt;= x15 &lt;= 12.5
+ 7 &lt;= x16 &lt;= 9.5
  7 &lt;= x18 &lt;= 9.5
  13 &lt;= x17 &lt;= 16.5
- 0 &lt;= x20 &lt;= 6.5
  13 &lt;= x19 &lt;= 16.5
+ 0 &lt;= x20 &lt;= 6.5
  13 &lt;= x21 &lt;= 16.5
  0 &lt;= x22 &lt;= 6.5
- 0 &lt;= x24 &lt;= 6.5
  10 &lt;= x23 &lt;= 12.5
+ 0 &lt;= x24 &lt;= 6.5
 
 End
 
@@ -13325,7 +13430,129 @@ End
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.2-CheckAdditiveModel-avec-le-classement-des-couches-lorsque-la-note-globale-de-chaque-couche-culotte-n&#8217;est-pas-fix&#233;e">1.2 CheckAdditiveModel avec le classement des couches lorsque la note globale de chaque couche-culotte n&#8217;est pas fix&#233;e<a class="anchor-link" href="#1.2-CheckAdditiveModel-avec-le-classement-des-couches-lorsque-la-note-globale-de-chaque-couche-culotte-n&#8217;est-pas-fix&#233;e">&#182;</a></h3>
+<h3 id="1.2.2-CheckAdditiveModel-avec-le-classement-des-couches-lorsque-la-note-globale-de-chaque-couche-culotte-n&#8217;est-pas-fix&#233;e">1.2.2 CheckAdditiveModel avec le classement des couches lorsque la note globale de chaque couche-culotte n&#8217;est pas fix&#233;e<a class="anchor-link" href="#1.2.2-CheckAdditiveModel-avec-le-classement-des-couches-lorsque-la-note-globale-de-chaque-couche-culotte-n&#8217;est-pas-fix&#233;e">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>     <span class="n">checkAdditiveModel</span><span class="p">(</span><span class="n">csv_name</span><span class="o">=</span><span class="s1">&#39;./data/data_couches_original.xlsx&#39;</span><span class="p">,</span>
+                      <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;Programme Lineaire - Classement Couches-culottes sans note&#39;</span><span class="p">,</span>
+                      <span class="n">eval_expr</span><span class="o">=</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span>
+                      <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span>
+                      <span class="n">with_scores</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Le Programme Lineaire - Classement Couches-culottes sans note du fichier ./data/data_couches_original.xlsx n&#39;admet pas de solution
+Scores : False
+-----------------------------------------------------
+\* Problem: Programme Lineaire - Classement Couches-culottes sans note *\
+
+Maximize
+ obj: + x1
+
+Subject To
+ c1: + 0.6 x1 + 0.4 x2 - y1 = 0
+ c2: + 0.6 x3 + 0.4 x4 - y2 = 0
+ c3: + 0.6 x5 + 0.4 x6 - y3 = 0
+ c4: + 0.6 x7 + 0.4 x8 - y4 = 0
+ c5: + 0.6 x9 + 0.4 x10 - y5 = 0
+ c6: + 0.6 x11 + 0.4 x12 - y6 = 0
+ c7: + 0.6 x13 + 0.4 x14 - y7 = 0
+ c8: + 0.6 x15 + 0.4 x16 - y8 = 0
+ c9: + 0.6 x17 + 0.4 x18 - y9 = 0
+ c10: + 0.6 x19 + 0.4 x20 - y10 = 0
+ c11: + 0.6 x21 + 0.4 x22 - y11 = 0
+ c12: + 0.6 x23 + 0.4 x24 - y12 = 0
+ c13: + y1 - y2 &gt;= 0.1
+ c14: + y2 - y3 &gt;= 0.1
+ c15: + y3 - y4 = 0
+ c16: + y4 - y5 = 0
+ c17: + y5 - y6 = 0
+ c18: + y6 - y7 &gt;= 0.1
+ c19: + y7 - y8 = 0
+ c20: + y8 - y9 &gt;= 0.1
+ c21: + y9 - y10 = 0
+ c22: + y10 - y11 = 0
+ c23: + y11 - y12 &gt;= 0.1
+
+Bounds
+ 17 &lt;= x1 &lt;= 20
+ 0 &lt;= y1 &lt;= 20
+ 17 &lt;= x2 &lt;= 20
+ 0 &lt;= y2 &lt;= 20
+ 13 &lt;= x4 &lt;= 16.5
+ 13 &lt;= x3 &lt;= 16.5
+ 10 &lt;= x5 &lt;= 12.5
+ 17 &lt;= x6 &lt;= 20
+ 0 &lt;= y3 &lt;= 20
+ 0 &lt;= y4 &lt;= 20
+ 10 &lt;= x7 &lt;= 12.5
+ 17 &lt;= x8 &lt;= 20
+ 10 &lt;= x9 &lt;= 12.5
+ 10 &lt;= x10 &lt;= 12.5
+ 0 &lt;= y5 &lt;= 20
+ 13 &lt;= x11 &lt;= 16.5
+ 0 &lt;= y6 &lt;= 20
+ 10 &lt;= x12 &lt;= 12.5
+ 0 &lt;= y7 &lt;= 20
+ 13 &lt;= x13 &lt;= 16.5
+ 7 &lt;= x14 &lt;= 9.5
+ 10 &lt;= x15 &lt;= 12.5
+ 7 &lt;= x16 &lt;= 9.5
+ 0 &lt;= y8 &lt;= 20
+ 7 &lt;= x18 &lt;= 9.5
+ 13 &lt;= x17 &lt;= 16.5
+ 0 &lt;= y9 &lt;= 20
+ 13 &lt;= x19 &lt;= 16.5
+ 0 &lt;= x20 &lt;= 6.5
+ 0 &lt;= y10 &lt;= 20
+ 13 &lt;= x21 &lt;= 16.5
+ 0 &lt;= y11 &lt;= 20
+ 0 &lt;= x22 &lt;= 6.5
+ 10 &lt;= x23 &lt;= 12.5
+ 0 &lt;= y12 &lt;= 20
+ 0 &lt;= x24 &lt;= 6.5
+
+End
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Le problème ainsi formalisé n'admet également pas de solution</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.2.3-Conclusions">1.2.3 Conclusions<a class="anchor-link" href="#1.2.3-Conclusions">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13334,10 +13561,7 @@ End
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>   <span class="n">checkAdditiveModel</span><span class="p">(</span><span class="n">csv_name</span><span class="o">=</span><span class="s1">&#39;../data/data_couches_original.xlsx&#39;</span><span class="p">,</span>
-                      <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;Programme Lineaire - Classement Couches-culottes sans note&#39;</span><span class="p">,</span>
-                      <span class="n">eval_expr</span><span class="o">=</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span>
-                      <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
