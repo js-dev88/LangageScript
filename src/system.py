@@ -1,27 +1,23 @@
 from optlang import Model, Variable, Constraint, Objective
-from loader import loadModel
+from loader import loadModel, parseDataframe
 import pandas as pd
 import math
 
 
-def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=True, update_model=None):
-        
-    model = linearProgramSolver(csv_name, type, eval_expr, direction , model_name, with_scores,update_model)
+def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=False, update_model=None):
+    
+    model, df_criteria_list = linearProgramSolver(csv_name, type, eval_expr, direction , model_name, with_scores, update_model)
     
     if model.status == 'infeasible':
-        print(f'Le {model.name} du fichier {csv_name} n\'admet pas de solution')
-        print(f'Scores : {with_scores}')     
+        result = f'Le {model.name} du fichier {csv_name} n\'admet pas de solution'  
     else:
-        displayModel(model)
-        """TODO export in excel"""
-    print('-----------------------------------------------------')
-    print(model)
+        result = displayModel(model, df_criteria_list)
+    return result
     
 
 def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_scores, update_model=None):
     
     df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries = loadModel(csv_name, type)
-    
     nb_criteria = len(df_criteria_list.columns)
     
     # variables definition
@@ -48,7 +44,7 @@ def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_s
     #Model
     model = buildModel(constraint_list, obj, model_name) 
     
-    return model
+    return model, df_criteria_list
 
 def update_variable_list_from_dict(update_model, variable_list):
     if len(update_model['upd']) > 0:
@@ -57,8 +53,6 @@ def update_variable_list_from_dict(update_model, variable_list):
                 for idx, var in enumerate(v):
                     if var_to_update.name == var.name:
                         v[idx] = var_to_update
-                        print(var)
-                        print(var)
                         
     return variable_list
                     
@@ -79,14 +73,42 @@ def buildModel(constraint_list, obj, model_name):
     model.optimize() 
     return model
 
-def displayModel(model):
+def displayModel(model, df_criteria_list):
     
-    print('status: ', model.status)
+    col_names = list(df_criteria_list)
+    display_df  = pd.DataFrame(columns = col_names)
+    display_df.iloc[:,0] = df_criteria_list.iloc[:,0]
+    nb_criterias = len(col_names)-1
+    
+    variable_result_list = []
+    
+    for var_name, var in model.variables.items():
+        variable_result_list.append((var_name,var.primal))
+    
+    variable_result_list.sort(key=lambda x: (x[0][0],int(x[0][1:])))
+    k=0
+    for i in range(0, len(df_criteria_list)*nb_criterias,nb_criterias):
+        temp_list = []
+        for j in range (nb_criterias):
+            temp_list.append(variable_result_list[i+j][1])
+        display_df.iloc[k,-nb_criterias:] = temp_list
+        k+=1
+        
+    scores_list = variable_result_list[-len(df_criteria_list):]
+    scores_list = [i[1] for i in scores_list]
+    display_df['Scores'] = pd.Series(scores_list)
+    
+    return display_df
+
+    
+    """print('status: ', model.status)
     print('objective value: ', model.objective.value)
     print('----------------------')
     
-    for var_name, var in model.variables.items():
-        print(var_name,'=',var.primal)   
+    
+        
+    df = pd.DataFrame(data, columns=columns)
+    return df"""
     
 def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme, with_scores, dict_boundaries):
     """
@@ -166,5 +188,12 @@ def createScoreConstraint(df_score, variable_list_y, constraint_num):
             scoreContraints.append(Constraint(variable_list_y[i] - variable_list_y[i+1], name=f'c{constraint_num+i+1}', lb = 0, ub = 0))
     return scoreContraints
     
-    
-
+def createUpdateModel(variable_list, constraint_name_list):
+      
+    update_model = {}
+    update_model['variable'] = {}
+    update_model['constraint'] = {}
+    update_model['variable']['upd'] = variable_list
+    update_model['constraint']['del'] = constraint_name_list
+   
+    return update_model
