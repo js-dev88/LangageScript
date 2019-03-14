@@ -169,3 +169,42 @@ tau , p_val = RankingCompareKendall(rank1,rank2)
 print ("Spearman :\ncoef :", coef, "\np :", p, "\n\n")
 print ("Kendall :\ntau :", tau, "\np_val :", p_val)
 
+
+'''
+#Q3.3  
+
+En maximisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+    
+Le coefficient de Spearman s'élève à 0.95113, cela nous permet de voir
+qu'il y a une relation monotone entre le classement proposé par le magazine et
+le classement obtenu en retirant les contraintes d'égalité de notes des couches d-e et i-j.
+Les deux variables évoluent dans la même direction, lorsque la note évaluée 
+par le magazine augmente, celle obtenue en supprimant la contrainte 
+d'égalité entre d-e et i-j augmente également.
+Ce coefficient est relativement proche de 1, cela signifie que les deux classements 
+sont quasiement identiques.
+
+De même, en calculant le coefficient de Kendall, on obtient un résultat de 0.88970.
+Cela nous amène aux mêmes conclusions :
+    Il existe une corrélation positive entre le classement obtenu par le magazine et
+    celui obtenu en retirant les contraites d'égalité de notes des couches d-e et i-j.
+    Le coefficient étant positif, cela signifie que les variables évoluent dans le 
+    même sens. 
+    La p-value associée au coefficient de Kendall est quasiment nulle (0.00019) ce qui nous permet de rejeter l'hypothèse nulle (l'indépendance des classements). 
+    
+En minimisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j : 
+    Le coefficient de Spearman vaut 0.96758 et le coefficient de Kendall 0.93159.
+    De la même manière que pour la maximisation, on observe une relation monotone positive, les deux classements évoluent dans la même direction.
+    
+# Pas sûr...: Ces résultats suggèrent que la couche l ("Lillydoo") a correctement été classée par le magazine
+
+
+En maximisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+    On observe un coefficient de Spearman de 0.52828 et un coefficient de Kendall de 0.57411. 
+    Cela suggère que les deux classements ne sont pas totalement décorrélés mais que la liaison est plutôt faible. Les valeurs ont tendances à augmenter ensemble.
+
+En minimisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+    
+    On obtient exactement les mêmes résultats que ceux obtenus en maximisant fa. 
+    Le coefficient de Spearman vaut 0.52828 et celui de Kendall 0.57411.
+'''
