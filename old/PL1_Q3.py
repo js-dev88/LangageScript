@@ -154,7 +154,7 @@ book.save(ranking_q3)
 
 '''On compare le rang obtenu avec celui proposé par le magasine
 '''
-magazine_input ="input_couches.xlsx"
+magazine_input ="../data/data_couches_original.xlsx"
 Data_Ranking = pd.read_excel(magazine_input ,sheet_name ='Feuil1')
 
 Data_RankingQ3 = pd.read_excel(ranking_q3)
