@@ -17,7 +17,7 @@ def loadModel(file_name, type='excel'):
     elif type == 'excel':
         df = pd.read_excel(f'{file_name}')
         
-    return parseDataframe(df)
+    return df
 
 def parseDataframe(df):
     """

@@ -2,22 +2,37 @@ from optlang import Model, Variable, Constraint, Objective
 from loader import loadModel, parseDataframe
 import pandas as pd
 import math
-
+from scipy.stats import spearmanr,kendalltau
 
 def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=False, update_model=None):
     
-    model, df_criteria_list = linearProgramSolver(csv_name, type, eval_expr, direction , model_name, with_scores, update_model)
-    
-    if model.status == 'infeasible':
-        result = f'Le {model.name} du fichier {csv_name} n\'admet pas de solution'  
-    else:
-        result = displayModel(model, df_criteria_list)
+    df = loadModel(csv_name, type)
+    if eval_expr != 'all':
+        model, df_criteria_list = linearProgramSolver(df, eval_expr, direction , model_name, with_scores, update_model)       
+        if model.status == 'infeasible':
+            result = f'Le {model.name} du fichier {csv_name} n\'admet pas de solution'  
+        else:
+            result = displayModel(model, df_criteria_list)
+    else:      
+        result = displayAllProductMaxScore(df, direction , model_name, update_model)
+            
     return result
     
-
-def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_scores, update_model=None):
+def displayAllProductMaxScore(df, direction , model_name, update_model):
     
-    df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries = loadModel(csv_name, type)
+    all_results = None
+    for i in range(len(df['Produit'])):
+         model, df_criteria_list = linearProgramSolver(df, f'y{i+1}', direction, model_name,False, update_model) 
+         result = displayModel(model, df_criteria_list)
+         if all_results is None:
+             all_results = pd.DataFrame(columns=result.columns)
+         all_results = all_results.append(result.iloc[i])
+         
+    return all_results
+    
+        
+def linearProgramSolver(df, eval_expr, direction, model_name, with_scores = False, update_model=None):
+    df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries = parseDataframe(df)
     nb_criteria = len(df_criteria_list.columns)
     
     # variables definition
@@ -44,7 +59,7 @@ def linearProgramSolver(csv_name, type, eval_expr, direction, model_name, with_s
     #Model
     model = buildModel(constraint_list, obj, model_name) 
     
-    return model, df_criteria_list
+    return model, df_criteria_list 
 
 def update_variable_list_from_dict(update_model, variable_list):
     if len(update_model['upd']) > 0:
@@ -71,6 +86,7 @@ def buildModel(constraint_list, obj, model_name):
     model.objective = obj
     model.add(constraint_list)
     model.optimize() 
+    
     return model
 
 def displayModel(model, df_criteria_list):
@@ -96,20 +112,10 @@ def displayModel(model, df_criteria_list):
         
     scores_list = variable_result_list[-len(df_criteria_list):]
     scores_list = [i[1] for i in scores_list]
-    display_df['Scores'] = pd.Series(scores_list)
+    display_df['Score'] = pd.Series(scores_list)
     
     return display_df
-
-    
-    """print('status: ', model.status)
-    print('objective value: ', model.objective.value)
-    print('----------------------')
-    
-    
-        
-    df = pd.DataFrame(data, columns=columns)
-    return df"""
-    
+   
 def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme, with_scores, dict_boundaries):
     """
     Construction des variable du modèle
@@ -197,3 +203,19 @@ def createUpdateModel(variable_list, constraint_name_list):
     update_model['constraint']['del'] = constraint_name_list
    
     return update_model
+
+def getOriginalData(csv_name, type='excel'):
+    df = loadModel(csv_name, type)
+    df_score  = df['Score'].copy()
+    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
+    df = df_criteria_list.join(df_score)
+    return df
+
+
+def compareRankings(score_df1, score_df2):
+    result = {}
+    result['coef'], result['p'] = spearmanr(score_df1, score_df2)
+    result['tau'],result['p_val'] = kendalltau(score_df1, score_df2)
+    print(result)
+    return result
+
