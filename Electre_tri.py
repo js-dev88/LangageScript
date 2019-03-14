@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 12 19:53:27 2019
+
+@author: ayoubafrass
+"""
+
 from optlang import Model, Variable, Constraint, Objective
 from random import *
 import pandas as pd
@@ -12,6 +20,7 @@ y7 = y8 = 12
 y9 = y10 = y11 = 9.5
 y12 = 6.5
 '''
+test= []
 
 ''' Définition des variables du modele  avec Contraintes "inégalités" 20 à 29'''
 x1 = Variable ('x1', lb=17, ub = 20)
@@ -103,7 +112,9 @@ RefPerf=np.array(["++++","+++","++","+","-","---"])
 CouchesCompo=np.array(["+++","++","+++","+++","+","+","-","-","-","--","--","--"])
 RefCompo=np.array(["++++","+++","++","+","-","---"])
 
+
 DonneesMagazine=["C5","C4","C3","C3","C3","C3","C3","C3","C2","C2","C2","C1"]
+
 
 cpHbi = np.zeros((12, 6), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
 cpbiH = np.zeros((6, 12), dtype=int)#Matrice de concordance partielle de 12 lignes et 6 colonnes
@@ -120,16 +131,16 @@ AffectationPessimiste =[]
 AffectationOptimiste =[]
 
 
-comparator=False
+comparator=0
 def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle retourne "False"
     if(a[0]=="+" and b[0]=="+" and len(a)>=len(b)):
-        comparator=True
+        comparator=1
     elif(a[0]=="+" and b[0]=="-"):
-        comparator=True
+        comparator=1
     elif(a[0]=="-" and b[0]=="-" and len(a)<=len(b)): 
-        comparator=True
+        comparator=1
     else: 
-        comparator=False
+        comparator=0
         
     return comparator
 
@@ -184,7 +195,7 @@ for j in range(0,RefPerf.size):
     for i in range(0,CouchesPerf.size):
         CgbiH[j,i]=k[0]*cpbiH[j,i]+ k[1]*cpbiH1[j,i]/(k[0]+k[1])
         
-print("Matrice de concordance GLOBALE Cg(H,bi) ",CgbiH)
+print("Matrice de concordance GLOBALE Cg(bi,H) ",CgbiH)
 
 #Determiner la relation de surclassment
 def SurclassementHbi(lamda):
@@ -225,16 +236,17 @@ def Evalpessimiste():
 #je ne traite pas le cas où j'ai que des 0 ? Ce cas est-il possible déjà ? 
 print("Affectation pessimiste : ",Evalpessimiste())
 
-
+k=0;
+AffectationOptimiste=[]
 #Procédure optimiste
 def Evaloptimiste():
     #CHAOS ne marche pas 
     for i in range(0,CouchesPerf.size):
-        for j in range(RefPerf.size-1,1):
-            if SurcbiH[j,i]==0:
+        for j in range(0,RefPerf.size):
+            if SurcbiH[5-j,i]==0:
                 continue
-            elif SurcbiH[j,i]==1 and SurcHbi[i,j]==0:
-                AffectationOptimiste.append(categories.get("C"+str(6-j-1)))                
+            elif SurcbiH[5-j,i]==1 and SurcHbi[i,5-j]==0:
+                AffectationOptimiste.append(categories.get("C"+str(6-j)))
                 break
             
     return AffectationOptimiste
@@ -242,6 +254,8 @@ def Evaloptimiste():
 print("Affectation optimiste : ",Evaloptimiste())
 
 IMauvC=0
+
+
 
 
 def CompareClassification():
@@ -252,8 +266,21 @@ def CompareClassification():
             IMauvC +=1
     
     return IMauvC
-                
+IMauvC1=0            
+def CompareClassification1():
+    global IMauvC1 
+    #Il faut retourner une exception dans le cas où les deux listes ne sont pas de la même taille
+    for i in range(len(AffectationOptimiste)):
+        if list(categories.keys())[list(categories.values()).index(AffectationOptimiste[i])]!=DonneesMagazine[i] :
+            IMauvC1 +=1
+    
+    return IMauvC1
 
 print("Taux de mauvaise classification sur la méthode pessimiste : ", (CompareClassification()/len(AffectationPessimiste))*100,"%" )
+print("Taux de mauvaise classification sur la méthode optimiste : ", (CompareClassification1()/len(AffectationOptimiste))*100,"%" )
 
-    
+
+
+
+
+
