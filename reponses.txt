@@ -1,0 +1,97 @@
+Question 2:
+
+2.1
+    La modélisation a été faite avec les valeurs exactes de f^a,...f^l puis avec des valeurs entre 0 et 20 de f^a,...f^l
+On s'aperçoit qu'il n'y a pas de solution réalisable. Cela signifie qu'il n'existe pas de
+
+2.2	
+    En prenant des évaluations quelconque entre 0 et 20, le PL reste toujours non réalisable.
+    
+2.3 La compréhension intuitive des résultats, suppose qu'il existe deux critères de classement : Performance et composition
+    La composition compte pour 40%, et la performance pour 60%
+    Or, en modélisant ce problème, avec ces coéfficients liés à ces deux critères, on constate qu'il n'existe pas de solution réalisable exacte de ce problème via un model de somme pondérée.
+    Ces résultats mettent en cause au moins la présentation de cette étude.
+
+
+
+
+Question 3 :
+
+3.1 En supposant fd = fe et fi = fj et en supprimant 17<=U2c(+++), le PL est réalisable. max(fa) = 20
+     min(fa) = 17 (Respectivement le meilleur et le pire résultat que Joone pourrait obtenir)
+     y9 = 10.6 => Love & Green avait une note inférieure à 10, sa note globale s'améliore de 1.1 point
+    
+3.2 Le pire résultat pour LillyDoo est 6/20 et le meilleur résultat espéré est 10.1
+     y9 = 10.6, y11 = 10.2 et y12 = 10.1. Love & Green Pomette Lillydoo voient leurs note passer au dessus de 10.
+    
+3.3  
+
+En maximisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+    
+Le coefficient de Spearman s'élève à 0.95113, cela nous permet de voir
+qu'il y a une relation monotone entre le classement proposé par le magazine et
+le classement obtenu en retirant les contraintes d'égalité de notes des couches d-e et i-j.
+Les deux variables évoluent dans la même direction, lorsque la note évaluée 
+par le magazine augmente, celle obtenue en supprimant la contrainte 
+d'égalité entre d-e et i-j augmente également.
+Ce coefficient est relativement proche de 1, cela signifie que les deux classements 
+sont quasiement identiques.
+
+De même, en calculant le coefficient de Kendall, on obtient un résultat de 0.88970.
+Cela nous amène aux mêmes conclusions :
+    Il existe une corrélation positive entre le classement obtenu par le magazine et
+    celui obtenu en retirant les contraites d'égalité de notes des couches d-e et i-j.
+    Le coefficient étant positif, cela signifie que les variables évoluent dans le 
+    même sens. 
+    La p-value associée au coefficient de Kendall est quasiment nulle (0.00019) ce qui nous permet de rejeter l'hypothèse nulle (l'indépendance des classements). 
+    
+En minimisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j : 
+    Le coefficient de Spearman vaut 0.96758 et le coefficient de Kendall 0.93159.
+    De la même manière que pour la maximisation, on observe une relation monotone positive, les deux classements évoluent dans la même direction.
+    
+# Pas sûr...: Ces résultats suggèrent que la couche l ("Lillydoo") a correctement été classée par le magazine
+
+
+En maximisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+    On observe un coefficient de Spearman de 0.52828 et un coefficient de Kendall de 0.57411. 
+    Cela suggère que les deux classements ne sont pas totalement décorrélés mais que la liaison est plutôt faible. Les valeurs ont tendances à augmenter ensemble.
+
+En minimisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+    
+    On obtient exactement les mêmes résultats que ceux obtenus en maximisant fa. 
+    Le coefficient de Spearman vaut 0.52828 et celui de Kendall 0.57411.
+
+
+	
+Question 4:
+
+4.1
+
+RESULTATS OBTENUS en maximisant yn le score global de la couche n (n allant de 1 à 12 - a à l):
+
+y1 (=fa) = 20 
+y2 (=fb) = 16.5 
+y3 (=fc) = 15.5 
+y4 (=fd) = 15.5 
+y5 (=fe) = 12.5 => descend dans le classement
+y6 (=ff) = 14.9 
+y7 (=fg) = 13.7 
+y8 (=fh) = 11.3 => descend dans le classement
+y9 (=fi) = 13.7 
+y10 (=fj) = 12.5 
+y11 (=fk) = 12.5 
+y12 (=fl) = 10.1 
+
+#Q4.2
+Le coefficient de Spearman s'élève à 0.81862, cela nous permet de voir qu'il y a une liaison assez forte et qu'il y a donc une relation monotone entre le classement proposé par le magazine et
+le classement obtenu en retirant les contraintes d'ordre sur le classement des couches tout en maximisant la note de chaque couche.
+Les deux variables évoluent dans la même direction, lorsque la note évaluée 
+par le magazine augmente, celle obtenue indépendamment des notes du magazine augmente également.
+
+
+De même, en calculant le coefficient de Kendall, on obtient un résultat de 0.73571.
+Cela nous amène aux mêmes conclusions :
+    Le coefficient étant positif, cela signifie que les variables évoluent dans le 
+    même sens. 
+    La p-value associée au coefficient de Kendall est quasiment nulle (0.00020) ce qui nous permet de rejeter l'hypothèse nulle (l'indépendance des classements). 
+
