@@ -2,17 +2,16 @@ Question 2:
 
 2.1
     La modélisation a été faite avec les valeurs exactes de f^a,...f^l puis avec des valeurs entre 0 et 20 de f^a,...f^l
-On s'aperçoit qu'il n'y a pas de solution réalisable. Cela signifie qu'il n'existe pas de
+On s'aperçoit qu'il n'y a pas de solution réalisable. Le classement présenté par le magazine n'est donc pas - avec les informations à notre disposition - explicable par un modèle de somme pondérée.
+
 
 2.2	
-    En prenant des évaluations quelconque entre 0 et 20, le PL reste toujours non réalisable.
+    En prenant des évaluations quelconque entre 0 et 20 au lieu de prendre les valeurs fixées par le magazine on constate que le PL reste toujours non réalisable.
     
 2.3 La compréhension intuitive des résultats, suppose qu'il existe deux critères de classement : Performance et composition
     La composition compte pour 40%, et la performance pour 60%
     Or, en modélisant ce problème, avec ces coéfficients liés à ces deux critères, on constate qu'il n'existe pas de solution réalisable exacte de ce problème via un model de somme pondérée.
     Ces résultats mettent en cause au moins la présentation de cette étude.
-
-
 
 
 Question 3 :
@@ -28,14 +27,14 @@ Question 3 :
 
 En maximisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
     
-Le coefficient de Spearman s'élève à 0.95113, cela nous permet de voir
+Le coefficient de corrélation de Spearman s'élève à 0.95113, cela nous permet de voir
 qu'il y a une relation monotone entre le classement proposé par le magazine et
 le classement obtenu en retirant les contraintes d'égalité de notes des couches d-e et i-j.
 Les deux variables évoluent dans la même direction, lorsque la note évaluée 
 par le magazine augmente, celle obtenue en supprimant la contrainte 
 d'égalité entre d-e et i-j augmente également.
 Ce coefficient est relativement proche de 1, cela signifie que les deux classements 
-sont quasiement identiques.
+sont quasiement identiques. A la différence près que la couche Love & Green baisse dans le classement : elle passe de la 9ème position à la dernière (12ème)
 
 De même, en calculant le coefficient de Kendall, on obtient un résultat de 0.88970.
 Cela nous amène aux mêmes conclusions :
@@ -44,17 +43,18 @@ Cela nous amène aux mêmes conclusions :
     Le coefficient étant positif, cela signifie que les variables évoluent dans le 
     même sens. 
     La p-value associée au coefficient de Kendall est quasiment nulle (0.00019) ce qui nous permet de rejeter l'hypothèse nulle (l'indépendance des classements). 
-    
+    La probabilité que l'hypothèse nulle soit vérifiée est de 0.00019, on peut donc la rejeter. Plus la valeur de la p-value est proche de 1, plus cela signifie que les variables sont décorrélées
+
+	
 En minimisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j : 
     Le coefficient de Spearman vaut 0.96758 et le coefficient de Kendall 0.93159.
     De la même manière que pour la maximisation, on observe une relation monotone positive, les deux classements évoluent dans la même direction.
     
-# Pas sûr...: Ces résultats suggèrent que la couche l ("Lillydoo") a correctement été classée par le magazine
 
 
 En maximisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
     On observe un coefficient de Spearman de 0.52828 et un coefficient de Kendall de 0.57411. 
-    Cela suggère que les deux classements ne sont pas totalement décorrélés mais que la liaison est plutôt faible. Les valeurs ont tendances à augmenter ensemble.
+    Cela suggère que les deux classements ne sont pas totalement décorrélés mais que la liaison est plutôt faible. Les valeurs ont tendance à augmenter ensemble.
 
 En minimisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
     
@@ -94,4 +94,4 @@ Cela nous amène aux mêmes conclusions :
     Le coefficient étant positif, cela signifie que les variables évoluent dans le 
     même sens. 
     La p-value associée au coefficient de Kendall est quasiment nulle (0.00020) ce qui nous permet de rejeter l'hypothèse nulle (l'indépendance des classements). 
-
+	La probabilité que l'hypothèse nulle soit vérifiée est de 0.00019, on peut donc la rejeter. Plus la valeur de la p-value est proche de 1, plus cela signifie que les variables sont décorrélées
