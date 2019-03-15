@@ -232,9 +232,8 @@ def black_row(sheet, min_col, max_col, min_row, thin_border):
 
 def columns_width(sheet):
     
-    for col in sheet.columns:
-        column = col[0].column
-        sheet.column_dimensions[column].width = 15
+    for i, col in enumerate(sheet.columns):
+        sheet.column_dimensions[get_column_letter(i+1)].width = 15
     
     
     

@@ -54,7 +54,7 @@ def linearProgramSolver(df, eval_expr, direction, model_name, with_scores = Fals
     #objective definition
     for var in variable_list_x + variable_list_y:
         if var.name == eval_expr:
-            obj = Objective(var, direction)
+            obj = Objective(expression=var, direction=direction)
         
     #Model
     model = buildModel(constraint_list, obj, model_name) 
