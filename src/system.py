@@ -204,14 +204,6 @@ def createUpdateModel(variable_list, constraint_name_list):
    
     return update_model
 
-def getOriginalData(csv_name, type='excel'):
-    df = loadModel(csv_name, type)
-    df_score  = df['Score'].copy()
-    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
-    df = df_criteria_list.join(df_score)
-    return df
-
-
 def compareRankings(score_df1, score_df2):
     result = {}
     result['coef'], result['p'] = spearmanr(score_df1, score_df2)
