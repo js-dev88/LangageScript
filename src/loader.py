@@ -46,7 +46,7 @@ def parseDataframe(df):
     coeff_list = buildCoeffList(df)
     df_bareme = df[['Note','Min_value','Max_value']].copy()
     df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil','Performance_Profil','Composition_Profil','Note_magazine'], 1).copy()
-    df_criteria_profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
+    #df_criteria_profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
     #df_criteria_profils=buildProfils(df)
     df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
     dict_boundaries = {}
@@ -57,7 +57,7 @@ def parseDataframe(df):
     #print(df_criteria_list.columns)
     #print(df_criteria_list["Performance"])
 
-    return df_score, coeff_list, df_criteria_list,df_criteria_profils, df_criteria_bareme, dict_boundaries,score_bymagazine
+    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries
      
 def buildCriteriaBaremedf(df_criteria_list, df_bareme):
     """
@@ -130,7 +130,8 @@ def buildScoreByMagazine(df):
 def getOriginalData(csv_name, type='excel'):
     df = loadModel(csv_name, type)
     df_score  = df['Score'].copy()
-    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
+    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil','Performance_Profil','Composition_Profil','Note_magazine'], 1).copy()
+    #df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil','Performance_Profil','Composition_Profil'], 1).copy()
     df = df_criteria_list.join(df_score)
     return df
 
@@ -156,31 +157,30 @@ def exportInExcel(filename, sheetname, df_list, name_list, rankings_list):
 def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list):
     
     sheet = workbook[sheetname]
-    thin_border = thinBorders()
-    if sheet.max_row == 1:
+    thin_border = thinBorders()   
+     
+    start_line = 2
+    start_col = 2
+    for idx, df in enumerate(df_list):
+    
+        rows = dataframe_to_rows(df, index=False, header=True)           
+        start_cell(sheet, start_line, start_col, name_list, idx, thin_border)
+        for r_idx, row in enumerate(rows, start_line+1):
+            for c_idx, value in enumerate(row, start_col):
+                sheet.cell(row=r_idx, column=c_idx, value=value).border = thin_border 
         
-        start_line = 2
-        start_col = 2
-        for idx, df in enumerate(df_list):
+        min_row = start_line+1
+        max_row = r_idx
+        min_col = start_col
+        max_col = c_idx
         
-            rows = dataframe_to_rows(df, index=False, header=True)           
-            start_cell(sheet, start_line, start_col, name_list, idx, thin_border)
-            for r_idx, row in enumerate(rows, start_line+1):
-                for c_idx, value in enumerate(row, start_col):
-                    sheet.cell(row=r_idx, column=c_idx, value=value).border = thin_border 
+        if idx !=0:
+            indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
+        blue_col(sheet, min_row, max_row, min_col, thin_border)
+        black_row(sheet, min_col, max_col, min_row, thin_border)
+        columns_width(sheet)
             
-            min_row = start_line+1
-            max_row = r_idx
-            min_col = start_col
-            max_col = c_idx
-            
-            if idx !=0:
-                indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
-            blue_col(sheet, min_row, max_row, min_col, thin_border)
-            black_row(sheet, min_col, max_col, min_row, thin_border)
-            columns_width(sheet)
-                
-            start_col = max_col+3
+        start_col = max_col+3
             
     return workbook
 
@@ -234,7 +234,7 @@ def columns_width(sheet):
     
     for col in sheet.columns:
         column = col[0].column
-        sheet.column_dimensions[get_column_letter(column)].width = 15
+        sheet.column_dimensions[column].width = 15
     
     
     
