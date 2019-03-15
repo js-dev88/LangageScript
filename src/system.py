@@ -33,7 +33,7 @@ def displayAllProductMaxScore(df, direction , model_name, update_model):
         
 def linearProgramSolver(df, eval_expr, direction, model_name, with_scores = False, update_model=None):
     df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries = parseDataframe(df)
-    nb_criteria = len(df_criteria_list.columns)
+    nb_criteria = len(df_criteria_list.columns)-1
     
     # variables definition
     variable_list={}
@@ -149,10 +149,10 @@ def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, df_sco
     
     constraint_list = []
     constraint_num = 0
-    for var_num in range(1,len(variable_list['variable_list_x']),nb_criteria-1):
+    for var_num in range(1,len(variable_list['variable_list_x']),nb_criteria):
         var_index = var_num
         list_of_parameter=list() 
-        for i in range(0, nb_criteria-1):
+        for i in range(0, nb_criteria):
            coeff_var = (coeff_list[i], variable_list['variable_list_x'][var_index-1])
            list_of_parameter.append(coeff_var)
            var_index+=1
