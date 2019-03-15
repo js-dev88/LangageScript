@@ -45,14 +45,20 @@ def parseDataframe(df):
     df_score  = df['Score'].copy()
     coeff_list = buildCoeffList(df)
     df_bareme = df[['Note','Min_value','Max_value']].copy()
-    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value'], 1).copy()
+    df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil','Performance_Profil','Composition_Profil','Note_magazine'], 1).copy()
+    df_criteria_profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
+    #df_criteria_profils=buildProfils(df)
     df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
     dict_boundaries = {}
     dict_boundaries['min'] = df_bareme['Min_value'].min()
     dict_boundaries['max'] = df_bareme['Max_value'].max()
+    score_bymagazine= buildScoreByMagazine(df)
+    
+    #print(df_criteria_list.columns)
+    #print(df_criteria_list["Performance"])
 
-    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries
-      
+    return df_score, coeff_list, df_criteria_list,df_criteria_profils, df_criteria_bareme, dict_boundaries,score_bymagazine
+     
 def buildCriteriaBaremedf(df_criteria_list, df_bareme):
     """
     Pour chaque colonne de critères, rajoute les bornes min et max de 
@@ -92,6 +98,34 @@ def buildCoeffList(df):
             coeff_list.append(c)
             
     return coeff_list
+
+"""def buildProfils(df):
+     
+    profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
+    df_criteria_profils = []
+    for p in profils:
+        if p!="Nan" :
+            df_criteria_profils.append(p)
+            
+    return df_criteria_profils"""
+
+def buildScoreByMagazine(df):
+    """
+    Récupère la liste des scores obtenues par le magazine
+        
+    Args:
+        df: Le Dataframe correspondant au fichier d'entrée
+    
+    Return: une liste de scores (catégories)
+    """
+    score = df['Note_magazine']
+    score_bymagazine = []
+    for s in score:
+        if s!="Nan":
+            score_bymagazine.append(s)
+            
+    return score_bymagazine
+    
 
 def getOriginalData(csv_name, type='excel'):
     df = loadModel(csv_name, type)
