@@ -13063,12 +13063,12 @@ ul.typeahead-list  > li > a.pull-right {
 /* Overrides of notebook CSS for static HTML export */
 body {
   overflow: visible;
-  padding: 8px;
 }
 
 div#notebook {
   overflow: visible;
   border-top: none;
+  margin-top:65px
 }@media print {
   div.cell {
     display: block;
@@ -13083,7 +13083,6 @@ div#notebook {
     page-break-inside: avoid; 
   }
 }
-
 
 /*CSS - CUSTOM */
 
@@ -13125,6 +13124,24 @@ nav ul li a:hover {
   background: rgba(255, 255, 255, 0.1);
   color: crimson;
   text-decoration: none;
+}
+
+@media screen and (max-width : 913px)
+{
+
+nav ul li {
+  display: inline-block;
+  width:100%;
+}
+
+div#notebook {
+  margin-top:110px
+}
+@media screen and (max-width : 550px)
+{
+
+div#notebook {
+  margin-top:140px
 }
 </style>
 
