@@ -161,7 +161,6 @@ def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, df_sco
         else:
             constraint_list.append(createConstraint(list_of_parameter, constraint_num, score = df_score[constraint_num]))
         constraint_num += 1
-    
     if not with_scores:
         constraint_list += createScoreConstraint(df_score, variable_list['variable_list_y'], constraint_num)
     return constraint_list
@@ -208,6 +207,5 @@ def compareRankings(score_df1, score_df2):
     result = {}
     result['coef - Spearman'], result['p - Spearman'] = spearmanr(score_df1, score_df2)
     result['tau - Kendall'],result['p_val - Kendall'] = kendalltau(score_df1, score_df2)
-    print(result)
     return result
 
