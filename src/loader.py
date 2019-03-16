@@ -144,8 +144,7 @@ def getOriginalData(csv_name, type='excel'):
 
 def getElectreTriData(csv_name, type='excel'):
     df = loadModel(csv_name, type)
-    df_produit  = df.drop(['Performance','Composition','Coefficient','Note','Min_value','Max_value','Profil','Performance_Profil','Composition_Profil','Note_magazine'], 1).copy()
-    #score_bymagazine= buildScoreByMagazine(df)
+    df_produit  = df.drop(['Performance','Composition','Coefficient','Note','Min_value','Max_value','Profil','Performance_Profil','Composition_Profil','Score'], 1).copy()
     df = df_produit
     return df
 
