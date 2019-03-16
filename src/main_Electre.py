@@ -12,6 +12,7 @@
 from Electre_tri import ConcordancePartielleHbi, ConcordancePartiellebiH, ConcordonceGlobaleHbi,ConcordonceGlobalebiH 
 from Electre_tri import SurclassementHbi,SurclassementbiH,EvaluationPessimiste,EvaluationOptimiste, compareClassification
 from loader import getElectreTriData, exportInExcel
+import pandas as pd
 
 def main():
 #------------------------------------------------------------
@@ -21,6 +22,8 @@ def main():
    direction="max"
    lamda=0.55
    result_original = getElectreTriData(csv_name) 
+   #resultat={'res':lamda,'res2':lamda,'res3':lamda}
+   resultat={'coef - Spearman': 0.8186210070534754, 'p - Spearman': 0.0011302533518624306, 'tau - Kendall': 0.7357148541413415, 'p_val - Kendall': 0.0020442312329492676}
 
 
 
@@ -74,10 +77,17 @@ def main():
    print("Taux mauvaise classification Pess", taux_mauvaise_classification1)
    
    
-   exportInExcel('./Resultats_Electre_tri.xlsx', 'Electre-tri',
-                 [result_original,taux_mauvaise_classification,taux_mauvaise_classification1],
-                 [EvalOptimisteResult],
-                 [EvalPessimisteResult])
+   
+   df_Eval_Opt=pd.DataFrame(EvalOptimisteResult,columns=["Classement Optimiste"])
+   df_Eval_Pes=pd.DataFrame(EvalPessimisteResult,columns=["Classement Pessimiste"])
+   
+   
+   exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Electre-tri-Couches',
+                 [result_original,taux_mauvaise_classification,taux_mauvaise_classification1,df_Eval_Opt,df_Eval_Pes],
+                 ['Modèle','Taux opt','Taux pes','Eval opt','Eval pess'],
+                 [resultat]
+                 )
+   
 
 if __name__ == "__main__":
     main()
