@@ -52,7 +52,7 @@ def main():
    
    
    result_original = getOriginalData(csv_name) 
-   update_model_Q3 = createUpdateModel([Variable ('x6', ub = 20)], ['c16', 'c21'])
+   #update_model_Q3 = createUpdateModel([Variable ('x6', ub = 20)], ['c16', 'c21'])
    
    
 #------------------------------------------------------------  
@@ -65,8 +65,8 @@ def main():
    result_3_1_max = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_3,
                       eval_expr='y1',
-                      direction='max',
-                      update_model=update_model_Q3)
+                      direction='max')#,
+                      #update_model=update_model_Q3)
    print(result_3_1_max)
    
     
@@ -75,8 +75,8 @@ def main():
    result_3_1_min = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_4,
                       eval_expr='y1',
-                      direction='min',
-                      update_model=update_model_Q3)
+                      direction='min')#,
+                      #update_model=update_model_Q3)
    print(result_3_1_min)
    
    
@@ -101,8 +101,8 @@ def main():
    result_3_2_max = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_5,
                       eval_expr='y10',
-                      direction='max',
-                      update_model=update_model_Q3)
+                      direction='max')#,
+                      #update_model=update_model_Q3)
    
    print(result_3_2_max)
    
@@ -111,8 +111,8 @@ def main():
    result_3_2_min = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_6,
                       eval_expr='y10',
-                      direction='min',
-                      update_model=update_model_Q3)
+                      direction='min')#,
+                      #update_model=update_model_Q3)
    
    print(result_3_2_min)
    
@@ -134,10 +134,9 @@ def main():
 #Q4
 #------------------------------------------------------------  
    
-   update_model_Q4 = createUpdateModel([Variable ('x6', ub = 20)], ['c13', 'c14', 'c15', 
-                                                                    'c16', 'c17', 'c18',
-                                                                    'c19', 'c20', 'c21',
-                                                                    'c22', 'c23'])
+   update_model_Q4 = createUpdateModel([Variable ('x6', ub = 20)], ['c11', 'c12', 'c13', 
+                                                                    'c14', 'c15', 'c16',
+                                                                    'c17', 'c18', 'c19'])
 #------------------------------------------------------------  
 #Q4.1
 #------------------------------------------------------------

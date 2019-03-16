@@ -86,6 +86,10 @@ def buildModel(constraint_list, obj, model_name):
     model.objective = obj
     model.add(constraint_list)
     model.optimize() 
+    for cons in model.constraints.items():
+        print(cons[1])
+    for var in model.variables.items():
+        print(var)
     
     return model
 
@@ -207,5 +211,6 @@ def compareRankings(score_df1, score_df2):
     result = {}
     result['coef - Spearman'], result['p - Spearman'] = spearmanr(score_df1, score_df2)
     result['tau - Kendall'],result['p_val - Kendall'] = kendalltau(score_df1, score_df2)
+    print(result)
     return result
 
