@@ -49,7 +49,7 @@ def parseDataframe(df):
     df_criteria_list = buildCriteriaList(df)
     
     #df_criteria_profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
-    #df_criteria_profils=buildProfils(df)
+    df_criteria_profils=buildProfils(df)
     df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
     dict_boundaries = {}
     dict_boundaries['min'] = df_bareme['Min_value'].min()
@@ -59,7 +59,7 @@ def parseDataframe(df):
     #print(df_criteria_list.columns)
     #print(df_criteria_list["Performance"])
 
-    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries
+    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries,df_criteria_profils,score_bymagazine
      
 def buildCriteriaList(df):
         df_criteria_list = df.copy()
@@ -109,15 +109,12 @@ def buildCoeffList(df):
             
     return coeff_list
 
-"""def buildProfils(df):
+
+def buildProfils(df):
      
-    profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
-    df_criteria_profils = []
-    for p in profils:
-        if p!="Nan" :
-            df_criteria_profils.append(p)
-            
-    return df_criteria_profils"""
+    profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine'], 1).copy()
+    return profils.dropna(thresh=2)
+   
 
 def buildScoreByMagazine(df):
     """
@@ -143,6 +140,13 @@ def getOriginalData(csv_name, type='excel'):
     df_criteria_list = buildCriteriaList(df)
     #df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil','Performance_Profil','Composition_Profil'], 1).copy()
     df = df_criteria_list.join(df_score)
+    return df
+
+def getElectreTriData(csv_name, type='excel'):
+    df = loadModel(csv_name, type)
+    df_produit  = df.drop(['Performance','Composition','Coefficient','Note','Min_value','Max_value','Profil','Performance_Profil','Composition_Profil','Note_magazine'], 1).copy()
+    #score_bymagazine= buildScoreByMagazine(df)
+    df = df_produit
     return df
 
 def exportInExcel(filename, sheetname, df_list, name_list, rankings_list):
