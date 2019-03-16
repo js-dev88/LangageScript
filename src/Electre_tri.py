@@ -4,7 +4,6 @@ import numpy as np
 import math
 
 categories = {"C1": "Très Insuffisant", "C2": "Insuffisant", "C3": "Acceptable", "C4":"Bon", "C5":"Très Bon"}
-IMauvC =0 #Indice de mauvaise classification
     
 def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle retourne "False"
     comparator=0
@@ -27,23 +26,29 @@ def ConcordancePartielleHbi(csv_name,direction,type='excel'):
     nb_criteria=len(df_criteria_list.columns) #nb de critères
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
-    concMatrixHbi = np.zeros((nb_produits, nb_profils),dtype=int) #Matrice de concordance (H,bi)
+    
     listHbi = [] #Liste qui va contenir toutes les matrices de concordance créées
-
+    
     if(direction=="max"):
+        
         for z in range(1,nb_criteria):
+            concMatrixHbi = np.zeros((nb_produits, nb_profils),dtype=int) #Matrice de concordance (H,bi)
             criteria = df_criteria_list.iloc[:,[z]]
             profilCriteria = df_criteria_profils.iloc[:,[z]]
             
             for i in range(0,nb_produits):
                  for j in range(0,nb_profils):
                     concMatrixHbi[i,j]= comparesTo(criteria.values[i,0], profilCriteria.values[j,0])
-            listHbi.append(concMatrixHbi) 
+
+            #print("conc",concMatrixHbi)
+            listHbi.append(concMatrixHbi)
       
     elif(direction=="min"):
+        
          for z in range(1,nb_criteria):
              criteria = df_criteria_list.iloc[:,[z]]
              profilCriteria = df_criteria_profils.iloc[:,[z]]
+             concMatrixHbi = np.zeros((nb_produits, nb_profils),dtype=int) #Matrice de concordance (H,bi)
              for i in range(0,nb_produits):
                  for j in range(0,nb_profils):
                      concMatrixHbi[i,j]= comparesTo(profilCriteria.values[j,0],criteria.values[i,0])
@@ -59,11 +64,11 @@ def ConcordancePartiellebiH(csv_name,direction,type='excel'):
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
     listbiH = [] #Liste qui va contenir toutes les matrices de concordance créées
-    concMatrixbiH = np.zeros((nb_profils, nb_produits),dtype=int) #Matrice de concordance (bi,H)
 
 
     if(direction=="max"):
         for z in range(1,nb_criteria):
+            concMatrixbiH = np.zeros((nb_profils, nb_produits),dtype=int) #Matrice de concordance (bi,H)
             criteria = df_criteria_list.iloc[:,[z]]
             profilCriteria = df_criteria_profils.iloc[:,[z]]
             
@@ -75,6 +80,7 @@ def ConcordancePartiellebiH(csv_name,direction,type='excel'):
       
     elif(direction=="min"):
         for z in range(1,nb_criteria):
+            concMatrixbiH = np.zeros((nb_profils, nb_produits),dtype=int) #Matrice de concordance (bi,H)
             criteria = df_criteria_list.iloc[:,[z]]
             profilCriteria = df_criteria_profils.iloc[:,[z]]
             
@@ -217,16 +223,18 @@ def compareClassification(TypeEval,lamda,csv_name,direction,type='excel'):
     nb_produits=len(df_criteria_list) #nombre de produits
 
     
-    if TypeEval =="optimiste" or TypeEval =="o":
+    if TypeEval =="pessimiste" or TypeEval =="p":
+        IMauvC =0 #Indice de mauvaise classification
         for i in range(len(AffectationPessimiste)):
             if list(categories.keys())[list(categories.values()).index(AffectationPessimiste[i])]!=score_bymagazine[i] :
                 IMauvC +=1
                 
     else:
+        IMauvC =0 #Indice de mauvaise classification
         for i in range(len(AffectationOptimiste)):
             if list(categories.keys())[list(categories.values()).index(AffectationOptimiste[i])]!=score_bymagazine[i] :
                 IMauvC +=1
         
-    return (IMauvC/nb_produits)
+    return (IMauvC/nb_produits*100)
     
     
