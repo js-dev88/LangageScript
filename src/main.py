@@ -82,6 +82,7 @@ def main():
    #------------------------------------------------------------ 
    #Q3.3
    #------------------------------------------------------------ 
+
    dict_max_y1 = compareRankings(result_original['Score'], result_3_1_max['Score'])
    dict_min_y1 = compareRankings(result_original['Score'], result_3_1_min['Score'])
    

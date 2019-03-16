@@ -137,6 +137,7 @@ def getOriginalData(csv_name, type='excel'):
 
 def exportInExcel(filename, sheetname, df_list, name_list, rankings_list):
     
+    
     if not os.path.isfile(filename):
         workbook = Workbook()
         workbook.save(filename)

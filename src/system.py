@@ -10,7 +10,7 @@ def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel',
     if eval_expr != 'all':
         model, df_criteria_list = linearProgramSolver(df, eval_expr, direction , model_name, with_scores, update_model)       
         if model.status == 'infeasible':
-            result = f'Le {model.name} du fichier {csv_name} n\'admet pas de solution'  
+            result = f'Le {model.name} \n du fichier {csv_name} n\'admet pas de solution'  
         else:
             result = displayModel(model, df_criteria_list)
     else:      
@@ -206,8 +206,8 @@ def createUpdateModel(variable_list, constraint_name_list):
 
 def compareRankings(score_df1, score_df2):
     result = {}
-    result['coef'], result['p'] = spearmanr(score_df1, score_df2)
-    result['tau'],result['p_val'] = kendalltau(score_df1, score_df2)
+    result['coef - Spearman'], result['p - Spearman'] = spearmanr(score_df1, score_df2)
+    result['tau - Kendall'],result['p_val - Kendall'] = kendalltau(score_df1, score_df2)
     print(result)
     return result
 
