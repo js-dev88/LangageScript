@@ -25,43 +25,45 @@ Question 3 :
     
 3.3  
 
-En maximisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+
+Les résultats suivants pour les maximisations et minimisation de fa et fl ont été réalisées en supprimant les contraintes d'égalité des couches d-e et i-j ainsi qu'en retirant la limite basse de la contrainte sur la note de composition de la couche c.
+
+En maximisant fl :
     
-Le coefficient de corrélation de Spearman s'élève à 0.95113, cela nous permet de voir
-qu'il y a une relation monotone entre le classement proposé par le magazine et
-le classement obtenu en retirant les contraintes d'égalité de notes des couches d-e et i-j.
-Les deux variables évoluent dans la même direction, lorsque la note évaluée 
-par le magazine augmente, celle obtenue en supprimant la contrainte 
-d'égalité entre d-e et i-j augmente également.
-Ce coefficient est relativement proche de 1, cela signifie que les deux classements 
-sont quasiement identiques. A la différence près que la couche Love & Green baisse dans le classement : elle passe de la 9ème position à la dernière (12ème)
+Le coefficient de corrélation de Spearman s'élève à 0.95113, cela nous permet de voir qu'il y a une relation monotone entre le classement proposé par le magazine et le classement obtenu.
+Les deux variables évoluent dans la même direction, lorsque la note évaluée par le magazine augmente, celle obtenue avec notre modélisation augmente également.
+Ce coefficient est relativement proche de 1, cela signifie que les deux classements sont quasiement identiques. 
+A la différence près que la couche Love & Green baisse dans le classement : elle passe de la 9ème position à la dernière (12ème)
 
 De même, en calculant le coefficient de Kendall, on obtient un résultat de 0.88970.
 Cela nous amène aux mêmes conclusions :
-    Il existe une corrélation positive entre le classement obtenu par le magazine et
-    celui obtenu en retirant les contraites d'égalité de notes des couches d-e et i-j.
-    Le coefficient étant positif, cela signifie que les variables évoluent dans le 
-    même sens. 
+    Il existe une corrélation positive entre le classement obtenu par le magazine et celui obtenu avec notre modélisation.
+    Le coefficient étant positif, cela signifie que les variables évoluent dans le même sens. 
     La p-value associée au coefficient de Kendall est quasiment nulle (0.00019) ce qui nous permet de rejeter l'hypothèse nulle (l'indépendance des classements). 
     La probabilité que l'hypothèse nulle soit vérifiée est de 0.00019, on peut donc la rejeter. Plus la valeur de la p-value est proche de 1, plus cela signifie que les variables sont décorrélées
 
 	
-En minimisant fl et en retirant les contraintes d'égalité de notes des couches d-e et i-j : 
-    Le coefficient de Spearman vaut 0.96758 et le coefficient de Kendall 0.93159.
+En minimisant fl : 
+    Le coefficient de Spearman vaut 0.967375 et le coefficient de Kendall 0.9315885.
     De la même manière que pour la maximisation, on observe une relation monotone positive, les deux classements évoluent dans la même direction.
+	Les deux coefficients sont proches de 1, on en conclut donc que les classements sont quasiment identiques.
+	
+	La p-value associée au coefficient de Kendall vaut 0.0001039. Elle est donc très proche de 0 et nous permet donc de rejeter l'hypothèse nulle (l'indépendance des classement).
     
+	
+En maximisant fa :
+    On observe un coefficient de Spearman de 0.96738 et un coefficient de Kendall de 0.93159. 
+	Ces deux coefficients sont relativement proches de 1, cela signifie que les deux classements sont quasiment identiques.
+	Surtout, on observe que ces résultats sont exactements les mêmes que ceux obtenus en minimisant fl.
+	
+	=>Peut-on en conclure quelque chose ?
 
-
-En maximisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
-    On observe un coefficient de Spearman de 0.52828 et un coefficient de Kendall de 0.57411. 
-    Cela suggère que les deux classements ne sont pas totalement décorrélés mais que la liaison est plutôt faible. Les valeurs ont tendance à augmenter ensemble.
-
-En minimisant fa et en retirant les contraintes d'égalité de notes des couches d-e et i-j:
+En minimisant fa :
     
-    On obtient exactement les mêmes résultats que ceux obtenus en maximisant fa. 
-    Le coefficient de Spearman vaut 0.52828 et celui de Kendall 0.57411.
-
-
+    On obtient exactement les mêmes résultats que ceux obtenus en maximisant fa et en minimisant fl. 
+    Le coefficient de Spearman vaut 0.96738 et celui de Kendall 0.93159, exactement comme dans les deux cas précédents.
+	
+	=>Peut-on en conclure quelque chose ?
 	
 Question 4:
 

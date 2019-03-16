@@ -3,6 +3,8 @@ from random import *
 import pandas as pd
 from xlwt import Workbook
 from spearman_kendall_coef import RankingCompareSpearman, RankingCompareKendall
+from system import checkAdditiveModel, createUpdateModel, compareRankings
+from loader import getOriginalData, exportInExcel
 
 ''' valeurs des f^a  à f^l, à récupérer depuis une liste et utilisé pour la question 2.2
 y1 = 17
@@ -88,14 +90,14 @@ model = Model(name = 'Simple model')
 model.objective = obj
 model.add([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c17, c18, c19, c21])
 status = model.optimize()
-'''   
+   
 print("status: ", model.status)
 print("objective value: ", model.objective.value)
 print("----------------------")
 
 for var_name, var in model.variables.items():
     print(var_name,"=",var.primal)
-'''
+
 
 #if(model.status == "infeasible"):
 #    print("Erreur : Classement non explicable par un modèle de type somme pondérée") 
@@ -149,6 +151,26 @@ for key, value in sorted(notes.items(), key=lambda kv: kv[0]):
     feuil1.write(i,1, value)
     i += 1
 
+csv_name='../data/data_couches_original.xlsx'
+
+result_original = getOriginalData(csv_name) 
+update_model_Q3 = createUpdateModel([Variable ('x6', ub = 20)], ['c16', 'c21'])
+   
+   
+#------------------------------------------------------------  
+#Q3.1
+#------------------------------------------------------------  
+   
+   
+   
+model_name_3 = 'Programme Lineaire - Meilleur score Joone'
+result_3_1_max = checkAdditiveModel(csv_name=csv_name,
+                      model_name=model_name_3,
+                      eval_expr='y1',
+                      direction='max',
+                      update_model=update_model_Q3)
+print(result_3_1_max)
+
 ranking_q3 = "ranking_q3.xls"
 book.save(ranking_q3)
 
@@ -159,7 +181,10 @@ Data_Ranking = pd.read_excel(magazine_input ,sheet_name ='Feuil1')
 
 Data_RankingQ3 = pd.read_excel(ranking_q3)
 rank1 =Data_Ranking['Score'] 
+print(type(rank1))
 rank2 = Data_RankingQ3['note']
+#rank2 = result_3_1_max['Score']
+print(type(rank2))
 
 ############# SpearMan Q3###############
 coef ,p = RankingCompareSpearman(rank1,rank2)
