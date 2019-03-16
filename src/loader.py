@@ -111,9 +111,11 @@ def buildCoeffList(df):
 
 
 def buildProfils(df):
-     
-    profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine'], 1).copy()
-    return profils.dropna(thresh=2)
+    df_Profil_list = df.copy()
+    for val in df_Profil_list.columns:
+        if not val.endswith('Profil'):
+            df_Profil_list = df_Profil_list.drop(val, axis = 1)
+    return df_Profil_list.dropna()
    
 
 def buildScoreByMagazine(df):
@@ -148,7 +150,7 @@ def getElectreTriData(csv_name, type='excel'):
     df = df_produit
     return df
 
-def exportInExcel(filename, sheetname, df_list, name_list, rankings_list):
+def exportInExcel(filename, sheetname, df_list, name_list, rankings_list=None):
     
     
     if not os.path.isfile(filename):
@@ -168,7 +170,7 @@ def exportInExcel(filename, sheetname, df_list, name_list, rankings_list):
     workbook.save(filename)
     return workbook
 
-def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list):
+def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list=None):
     
     sheet = workbook[sheetname]
     thin_border = thinBorders()   
@@ -188,7 +190,7 @@ def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list):
         min_col = start_col
         max_col = c_idx
         
-        if idx !=0:
+        if idx !=0 and rankings_list != None:
             indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
         blue_col(sheet, min_row, max_row, min_col, thin_border)
         black_row(sheet, min_col, max_col, min_row, thin_border)

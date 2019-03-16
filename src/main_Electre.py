@@ -84,8 +84,7 @@ def main():
    
    exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Electre-tri-Couches',
                  [result_original,taux_mauvaise_classification,taux_mauvaise_classification1,df_Eval_Opt,df_Eval_Pes],
-                 ['Modèle','Taux opt','Taux pes','Eval opt','Eval pess'],
-                 [resultat]
+                 ['Modèle','Taux opt','Taux pes','Eval opt','Eval pess']
                  )
    
 
