@@ -32,7 +32,7 @@ def displayAllProductMaxScore(df, direction , model_name, update_model):
     
         
 def linearProgramSolver(df, eval_expr, direction, model_name, with_scores = False, update_model=None):
-    df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries = parseDataframe(df)
+    df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries,_,_= parseDataframe(df)
     nb_criteria = len(df_criteria_list.columns)-1
     
     # variables definition
