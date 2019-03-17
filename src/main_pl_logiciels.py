@@ -72,7 +72,7 @@ def main():
    
    model_name_test2 = 'Programme Lineaire - Pire score Dashlane'
    result_test_min = checkAdditiveModel(csv_name=csv_name,
-                      model_name=model_name_test,
+                      model_name=model_name_test2,
                       eval_expr='y1',
                       direction='min',
                       update_model=update_model_test)
