@@ -150,7 +150,7 @@ def getElectreTriData(csv_name, type='excel'):
     df = df_produit
     return df
 
-def exportInExcel(filename, sheetname, df_list, name_list, rankings_list=None):
+def exportInExcel(filename, sheetname, df_list, name_list, rankings_list, electre=False):
     
     
     if not os.path.isfile(filename):
@@ -170,7 +170,7 @@ def exportInExcel(filename, sheetname, df_list, name_list, rankings_list=None):
     workbook.save(filename)
     return workbook
 
-def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list=None):
+def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, electre=False):
     
     sheet = workbook[sheetname]
     thin_border = thinBorders()   
@@ -190,8 +190,12 @@ def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list=None)
         min_col = start_col
         max_col = c_idx
         
-        if idx !=0 and rankings_list != None:
+        if not electre:
+            if idx !=0:
+                indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
+        else:
             indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
+            
         blue_col(sheet, min_row, max_row, min_col, thin_border)
         black_row(sheet, min_col, max_col, min_row, thin_border)
         columns_width(sheet)
