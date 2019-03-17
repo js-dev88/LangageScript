@@ -1,4 +1,4 @@
-from ressources.loader import loadModel, parseDataframe
+from loader import loadModel, parseDataframe
 import numpy as np
     
 def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle retourne "False"

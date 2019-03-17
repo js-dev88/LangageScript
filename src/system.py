@@ -1,8 +1,7 @@
-from optlang import Model, Variable, Constraint, Objective
-from ressources.loader import loadModel, parseDataframe
+from loader import loadModel, parseDataframe
 import pandas as pd
-import math
 from scipy.stats import spearmanr,kendalltau
+from optlang import Model, Variable, Constraint, Objective
 
 def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=False, update_model=None):
     
@@ -207,6 +206,8 @@ def compareRankings(score_df1, score_df2):
     result = {}
     result['coef - Spearman'], result['p - Spearman'] = spearmanr(score_df1, score_df2)
     result['tau - Kendall'],result['p_val - Kendall'] = kendalltau(score_df1, score_df2)
+    result['Diff Moyenne'] = (score_df2.sum() - score_df1.sum()) / len(score_df1)
+    print(len(score_df1))
     print(result)
     return result
 
