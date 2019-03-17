@@ -1,3 +1,5 @@
+#MAIN FINAL LOGICIELS
+
 """
 @authors: 
     Ayoub Afrass
@@ -14,15 +16,13 @@ from optlang import Variable
 from loader import getOriginalData, exportInExcel
 
 def main():
-    #Pour lancer une nouvelle analyse portant sur d'autres classements il faut : 
-        #mettre un fichier data valide (exemples dans le projet)
-        #renseigner le nom du fichier d'export
-        #Modifier les contraintes des variables update_model_Q3 l.59 et update_model_Q4 l.141
+
 #------------------------------------------------------------  
 #Q2.1
 #------------------------------------------------------------
    csv_name='../data/data_logiciels_original.xlsx'
    export_name = './results/Logiciels_Analyse_Classement.xlsx'
+   result_original = getOriginalData(csv_name)
     
     
    model_name_1 = 'Programme Lineaire - Classement Logiciels avec notes' 
@@ -49,96 +49,79 @@ def main():
    print(result_2_2)
    
    
-   
+   dict_max_x1 = compareRankings(result_original['Score'], result_2_2['Score'])
+   exportInExcel(export_name, 'Q2.2',
+			 [result_original, result_2_2],
+			 ['Modèle Original',model_name_2],
+			 [dict_max_x1])
 #------------------------------------------------------------  
-#Q3
+#TESTING different scenarios sans contraintes d'égalité - Dashlane max min 
 #------------------------------------------------------------  
+
+	#On retire les contraintes d'égalités de score des logiciels
+   update_model_test = createUpdateModel([], ['c13', 'c15', 'c19']) #c13 pour y3 = y4, c15 pour y5 = y6 et c19 pour y9 = 10
    
    
-   result_original = getOriginalData(csv_name) 
-   update_model_Q3 = createUpdateModel([Variable ('x6', ub = 20)], ['c16', 'c21'])
-   
-   
-#------------------------------------------------------------  
-#Q3.1
-#------------------------------------------------------------  
-   
-   
-   
-   model_name_3 = 'Programme Lineaire - Meilleur score Dashlane'
-   result_3_1_max = checkAdditiveModel(csv_name=csv_name,
-                      model_name=model_name_3,
+   model_name_test = 'Programme Lineaire - Meilleur score Dashlane'
+   result_test_max = checkAdditiveModel(csv_name=csv_name,
+                      model_name=model_name_test,
                       eval_expr='y1',
                       direction='max',
-                      update_model=update_model_Q3)
-   print(result_3_1_max)
+                      update_model=update_model_test)
+   print(result_test_max)
    
-    
-  
-   model_name_4 = 'Programme Lineaire - Pire score Dashlane'
-   result_3_1_min = checkAdditiveModel(csv_name=csv_name,
-                      model_name=model_name_4,
+   model_name_test2 = 'Programme Lineaire - Pire score Dashlane'
+   result_test_min = checkAdditiveModel(csv_name=csv_name,
+                      model_name=model_name_test,
                       eval_expr='y1',
                       direction='min',
-                      update_model=update_model_Q3)
-   print(result_3_1_min)
+                      update_model=update_model_test)
+   print(result_test_min)
    
-   
-   #------------------------------------------------------------ 
-   #Q3.3
-   #------------------------------------------------------------ 
-
-   dict_max_y1 = compareRankings(result_original['Score'], result_3_1_max['Score'])
-   dict_min_y1 = compareRankings(result_original['Score'], result_3_1_min['Score'])
+   dict_max_y1 = compareRankings(result_original['Score'], result_test_max['Score'])
+   dict_min_y1 = compareRankings(result_original['Score'], result_test_min['Score'])
    
    
    
-   exportInExcel(export_name, 'Q3.1',
-                 [result_original, result_3_1_max, result_3_1_min],
-                 ['Modèle Original',model_name_3, model_name_4],
+   exportInExcel(export_name, 'Dashlane',
+                 [result_original, result_test_max, result_test_min],
+                 ['Modèle Original',model_name_test, model_name_test2],
                  [dict_max_y1,dict_min_y1])
+   
 #------------------------------------------------------------  
-#Q3.2
+#TESTING different scenarios sans contraintes d'égalité - Avast max min 
 #------------------------------------------------------------  
-  
-   model_name_5 = 'Programme Lineaire - Meilleur score Avast'
-   result_3_2_max = checkAdditiveModel(csv_name=csv_name,
-                      model_name=model_name_5,
+
+   model_name_test3 = 'Programme Lineaire - Meilleur score Dashlane'
+   result_test_avast_max = checkAdditiveModel(csv_name=csv_name,
+                      model_name=model_name_test3,
                       eval_expr='y10',
                       direction='max',
-                      update_model=update_model_Q3)
+                      update_model=update_model_test)
+   print(result_test_avast_max)
    
-   print(result_3_2_max)
-   
- 
-   model_name_6 = 'Programme Lineaire - Pire score Avast'
-   result_3_2_min = checkAdditiveModel(csv_name=csv_name,
-                      model_name=model_name_6,
+   model_name_test4 = 'Programme Lineaire - Pire score Dashlane'
+   result_test_avast_min = checkAdditiveModel(csv_name=csv_name,
+                      model_name=model_name_test4,
                       eval_expr='y10',
                       direction='min',
-                      update_model=update_model_Q3)
+                      update_model=update_model_test)
+   print(result_test_avast_min)
    
-   print(result_3_2_min)
-   
-   
-   #------------------------------------------------------------ 
-   #Q3.3
-   #------------------------------------------------------------ 
-   dict_max_y12 = compareRankings(result_original['Score'], result_3_2_max['Score'])
-   dict_min_y12 = compareRankings(result_original['Score'], result_3_2_min['Score'])
+   dict_max_y10 = compareRankings(result_original['Score'], result_test_max['Score'])
+   dict_min_y10 = compareRankings(result_original['Score'], result_test_min['Score'])
    
    
    
-   exportInExcel(export_name, 'Q3.2',
-                 [result_original, result_3_2_max, result_3_2_min],
-                 ['Modèle Original',model_name_5, model_name_6],
-                 [dict_max_y12,dict_min_y12])
-
+   exportInExcel(export_name, 'Avast',
+                 [result_original, result_test_avast_max, result_test_avast_min],
+                 ['Modèle Original',model_name_test3, model_name_test4],
+                 [dict_max_y10,dict_min_y10])
 #------------------------------------------------------------  
 #Q4
 #------------------------------------------------------------  
    
-   update_model_Q4 = createUpdateModel([Variable ('x6', ub = 20)], ['c11', 'c12', 'c13', 
+   update_model_Q4 = createUpdateModel([], ['c11', 'c12', 'c13', 
                                                                     'c14', 'c15', 'c16',
                                                                     'c17', 'c18', 'c19'])
 #------------------------------------------------------------  
@@ -163,6 +146,6 @@ def main():
                  [result_original, result_4_1_all_max],
                  ['Modèle Original',model_name_7],
                  [dict_max_all])
-   
+
 if __name__ == "__main__":
     main()
