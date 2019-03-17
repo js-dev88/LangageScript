@@ -9,9 +9,9 @@
 """
 
 
-from electre_tri import ConcordancePartielleHbi, ConcordancePartiellebiH, ConcordonceGlobaleHbi,ConcordonceGlobalebiH 
-from electre_tri import SurclassementHbi,SurclassementbiH,EvaluationPessimiste,EvaluationOptimiste, compareClassification
-from loader import getElectreTriData, exportInExcel
+from ressources.electre_tri import ConcordancePartielleHbi, ConcordancePartiellebiH, ConcordonceGlobaleHbi,ConcordonceGlobalebiH 
+from ressources.electre_tri import SurclassementHbi,SurclassementbiH,EvaluationPessimiste,EvaluationOptimiste, compareClassification
+from ressources.loader import getElectreTriData, exportInExcel
 import pandas as pd
 
 def main():

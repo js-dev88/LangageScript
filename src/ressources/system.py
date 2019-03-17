@@ -1,5 +1,5 @@
 from optlang import Model, Variable, Constraint, Objective
-from loader import loadModel, parseDataframe
+from ressources.loader import loadModel, parseDataframe
 import pandas as pd
 import math
 from scipy.stats import spearmanr,kendalltau

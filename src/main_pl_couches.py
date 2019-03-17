@@ -9,9 +9,9 @@
 """
 
 
-from system import checkAdditiveModel, createUpdateModel, compareRankings
+from ressources.system import checkAdditiveModel, createUpdateModel, compareRankings
 from optlang import Variable
-from loader import getOriginalData, exportInExcel
+from ressources.loader import getOriginalData, exportInExcel
 
 def main():
 #------------------------------------------------------------  
