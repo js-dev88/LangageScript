@@ -1,9 +1,5 @@
 from loader import loadModel, parseDataframe
-import pandas as pd
 import numpy as np
-import math
-
-categories = {"C1": "Très Insuffisant", "C2": "Insuffisant", "C3": "Acceptable", "C4":"Bon", "C5":"Très Bon"}
     
 def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle retourne "False"
     comparator=0
@@ -22,7 +18,7 @@ def comparesTo(a,b): # cette fonction retourne "True" quand a >= b sinon elle re
 # Concordance partielle (H,bi)
 def ConcordancePartielleHbi(csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ , _, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df)  
+    _ , _, df_criteria_list, _, _, df_criteria_profils, _, _ = parseDataframe(df)  
     nb_criteria=len(df_criteria_list.columns) #nb de critères
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
@@ -59,7 +55,7 @@ def ConcordancePartielleHbi(csv_name,direction,type='excel'):
 # Concordance partielle (bi,H)
 def ConcordancePartiellebiH(csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ , _, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df)  
+    _ , _, df_criteria_list, _, _, df_criteria_profils, _, _ = parseDataframe(df)  
     nb_criteria=len(df_criteria_list.columns) #nb de critères
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
@@ -95,7 +91,7 @@ def ConcordancePartiellebiH(csv_name,direction,type='excel'):
 #Matrice de concordance globale (H,bi)                
 def ConcordonceGlobaleHbi(csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ ,coeff_list, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df) 
+    _ ,coeff_list, df_criteria_list, _, _, df_criteria_profils, _, _ = parseDataframe(df) 
     nb_criteria=len(df_criteria_list.columns)-1 #nb de critères
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
@@ -120,7 +116,7 @@ def ConcordonceGlobaleHbi(csv_name,direction,type='excel'):
 #Matrice de concordance globale (bi,H)                
 def ConcordonceGlobalebiH(csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ ,coeff_list, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df) 
+    _ ,coeff_list, df_criteria_list, _, _, df_criteria_profils, _, _ = parseDataframe(df) 
     nb_criteria=len(df_criteria_list.columns)-1 #nb de critères
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
@@ -142,7 +138,7 @@ def ConcordonceGlobalebiH(csv_name,direction,type='excel'):
 
 def SurclassementHbi(lamda,csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ ,_, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df) 
+    _ ,_, df_criteria_list, _, _, df_criteria_profils, _, _ = parseDataframe(df) 
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
     
@@ -157,7 +153,7 @@ def SurclassementHbi(lamda,csv_name,direction,type='excel'):
 
 def SurclassementbiH(lamda,csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ ,_, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df) 
+    _ ,_, df_criteria_list, _, _, df_criteria_profils, _, _ = parseDataframe(df) 
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
     
@@ -173,7 +169,7 @@ def SurclassementbiH(lamda,csv_name,direction,type='excel'):
              
 def EvaluationPessimiste(lamda,csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ ,_, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df) 
+    _ ,_, df_criteria_list, _, _, df_criteria_profils, _, categories = parseDataframe(df) 
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
     SurcHbi=SurclassementHbi(lamda,csv_name,direction,type='excel')
@@ -195,7 +191,7 @@ def EvaluationPessimiste(lamda,csv_name,direction,type='excel'):
 
 def EvaluationOptimiste(lamda,csv_name,direction,type='excel'):
     df = loadModel(csv_name, type)
-    _ ,_, df_criteria_list, _, _, df_criteria_profils, _ = parseDataframe(df) 
+    _ ,_, df_criteria_list, _, _, df_criteria_profils, _, categories = parseDataframe(df) 
     nb_produits=len(df_criteria_list) #nombre de produits
     nb_profils=len(df_criteria_profils) #nombre de profils
     SurcHbi=SurclassementHbi(lamda,csv_name,direction,type='excel')
@@ -219,7 +215,7 @@ def compareClassification(TypeEval,lamda,csv_name,direction,type='excel'):
     AffectationOptimiste = EvaluationOptimiste(lamda,csv_name,direction,type='excel')
     AffectationPessimiste = EvaluationPessimiste(lamda,csv_name,direction,type='excel')
     df = loadModel(csv_name, type)
-    _ ,_, df_criteria_list, _, _, _, score_bymagazine = parseDataframe(df) 
+    _ ,_, df_criteria_list, _, _, _, score_bymagazine, categories = parseDataframe(df) 
     nb_produits=len(df_criteria_list) #nombre de produits
 
     
