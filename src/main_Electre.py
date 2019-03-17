@@ -22,8 +22,8 @@ def main():
    direction="max"
    lamda=0.55
    result_original = getElectreTriData(csv_name) 
-   #resultat={'res':lamda,'res2':lamda,'res3':lamda}
-   resultat={'coef - Spearman': 0.8186210070534754, 'p - Spearman': 0.0011302533518624306, 'tau - Kendall': 0.7357148541413415, 'p_val - Kendall': 0.0020442312329492676}
+   resultat={'res':lamda,'res2':lamda,'res3':lamda}
+   #resultat={'coef - Spearman': 0.8186210070534754, 'p - Spearman': 0.0011302533518624306, 'tau - Kendall': 0.7357148541413415, 'p_val - Kendall': 0.0020442312329492676}
 
 
 
@@ -81,10 +81,16 @@ def main():
    df_Eval_Opt=pd.DataFrame(EvalOptimisteResult,columns=["Classement Optimiste"])
    df_Eval_Pes=pd.DataFrame(EvalPessimisteResult,columns=["Classement Pessimiste"])
    
+   #new_df = result_original + df_Eval_Opt.columns[0] + df_Eval_Pes.columns[0]
+   new_df = pd.concat([result_original, df_Eval_Opt, df_Eval_Pes], axis=1, sort=False)
    
+   print("NEW DF", new_df)
+   result = {"Taux opt": taux_mauvaise_classification, "Taux pes" :taux_mauvaise_classification1  }
    exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Electre-tri-Couches',
-                 [result_original,taux_mauvaise_classification,taux_mauvaise_classification1,df_Eval_Opt,df_Eval_Pes],
-                 ['Modèle','Taux opt','Taux pes','Eval opt','Eval pess']
+                 [new_df],
+                 ['Modèle'],
+                 [result], 
+                 electre = True
                  )
    
 
