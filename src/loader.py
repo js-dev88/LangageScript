@@ -65,16 +65,32 @@ def parseDataframe(df):
     return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries, df_criteria_profils, score_bymagazine, dict_categories
 
 def buildDictCategorie(df):
+    """
+    Renvoie un dataframe concaténant les colonnes Categorie et Valeurs
+        
+    Args:
+        df : Dataframe original
+    
+    Return: Dataframe
+    """
     cat_df = df[['Categories','Valeurs']].copy().dropna()
     cat_dict = dict(zip(cat_df['Categories'], cat_df['Valeurs']))
     return cat_dict
      
 def buildCriteriaList(df):
-        df_criteria_list = df.copy()
-        for val in df_criteria_list.columns:
-            if val.endswith('_Profil'):
-                df_criteria_list = df_criteria_list.drop(val, axis = 1)
-        return df_criteria_list.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil', 'Bornes', 'Note_magazine', 'Categories', 'Valeurs'], 1)
+    """
+    Renvoie un dataframe contenant les critères et la colonne produits
+        
+    Args:
+        df : Dataframe original
+    
+    Return: Dataframe
+    """
+    df_criteria_list = df.copy()
+    for val in df_criteria_list.columns:
+        if val.endswith('_Profil'):
+            df_criteria_list = df_criteria_list.drop(val, axis = 1)
+    return df_criteria_list.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil', 'Bornes', 'Note_magazine', 'Categories', 'Valeurs'], 1)
                 
                 
 def buildCriteriaBaremedf(df_criteria_list, df_bareme):
