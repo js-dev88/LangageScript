@@ -166,7 +166,7 @@ def exportInExcel(filename, sheetname, df_list, name_list, rankings_list, electr
     if sheetname not in workbook.sheetnames:
          workbook.create_sheet(sheetname)
          
-    workbook = writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list)        
+    workbook = writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, electre)        
     workbook.save(filename)
     return workbook
 
@@ -194,6 +194,7 @@ def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, elec
             if idx !=0:
                 indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
         else:
+            print(rankings_list)
             indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
             
         blue_col(sheet, min_row, max_row, min_col, thin_border)
