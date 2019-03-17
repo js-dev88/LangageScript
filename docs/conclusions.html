@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Projet_classement_produits_couches</title>
+<title>Conclusion</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13058,7 +13058,6 @@ ul.typeahead-list  > li > a.pull-right {
     </style>
 
 
-
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -13191,643 +13190,24 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div align="center"><h1> ANALYSE DES CLASSEMENTS DE PRODUITS </h1></div>
+<h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note : <em>Le code source est disponible <a href="https://github.com/toshiro10/LangageScript">ici</a></em></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="CAS-DU-MAGAZINE-60-MILLIONS-DE-CONSOMMATEURS---Couches-culottes">CAS DU MAGAZINE 60 MILLIONS DE CONSOMMATEURS - Couches-culottes<a class="anchor-link" href="#CAS-DU-MAGAZINE-60-MILLIONS-DE-CONSOMMATEURS---Couches-culottes">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Le magazine 60 millions de consommateurs dans son numéro 540 du mois d’Août 2018 a publié, après des essais comparatifs, un classement de plusieurs marques de couches-culottes pour enfants. Les résultats de leur enquête sont donnés
-par le tableau ci-dessous.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/tableau.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Dans cette section, nous essayerons d’analyser ce classement élaboré à partir de deux critères : la performance et la
-composition avec des poids respectifs de 60% et 40 %.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.-Le-score-global-(/20)-associ&#233;-&#224;-chaque-produit-peut-il-&#234;tre-expliqu&#233;-par-une-somme-pond&#233;r&#233;e-?">1. Le score global (/20) associ&#233; &#224; chaque produit peut-il &#234;tre expliqu&#233; par une somme pond&#233;r&#233;e ?<a class="anchor-link" href="#1.-Le-score-global-(/20)-associ&#233;-&#224;-chaque-produit-peut-il-&#234;tre-expliqu&#233;-par-une-somme-pond&#233;r&#233;e-?">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A la lecture du classement publié, il semble clair, pour un consommateur, que le score global donné à chaque produit
-résulte d’une moyenne pondérée (somme pondérée) de ses évaluations sur les deux critères performance et composition.
-L’objectif dans cette partie est de vérifier l’exactitude ou non de cette hypothèse.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Pour cela, nous allons associer un nombre réel positif à chaque évaluation qualitative attribuée à un produit. Ainsi, pour
-le produit “Joone” représenté par la lettre a sur le Tableau 1, si son score de 17/20 est obtenu à partir d’une somme
-pondérée notée f, alors il existe des nombres réels positifs U1a(+++) ∈ [17, 20] et U2a(+++) ∈ [17, 20] tels que</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><p style="text-align: center;">f(a) = 0.6 U1a(+++) + 0.4 U2a(+++) = 17</p></strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Plus généralement, pour un produit x dont le score global f(x) est donné par une somme pondérée f, si on note Uix(αix)
-le nombre réel associé à l’évaluation qualitative αix du produit x sur le critère i (la valeur qualitative αix étant donnée
-par le magazine), alors on aura</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong><p style="text-align: center;">f(x) = 0.6 U1x(α1x) + 0.4 U2x(α2x)</p></strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Pour déterminer si le classement des couches-culottes, fourni par le magazine, est compatible avec un modèle d’évaluation
-basé sur la somme pondérée, il nous suffit alors de résoudre le programme linéaire PL1 suivant (un système d’inéquations
-linéaires est suffisant pour ce test) :</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/pl.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>où</p>
-<ul>
-<li>La fonction objectif donnée par l’équation (3) consiste, ici, à maximiser le nombre réel U1a(+++) associé à l’évaluation de la couche-culotte “Joone” sur le critère Performance. En réalité, étant donné que nous cherchons simplement à satisfaire les contraintes de ce programme linéaire, le choix de n’importe quelle fonction objectif suffira à résoudre notre problème. En clair le choix de la fonction objectif de PL1 est arbitraire.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Les contraintes (4) à (15) correspondent à l’écriture sous forme de somme pondérée, comme dans la formule 2 ci-dessus, des 12 produits à évaluer.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Les contraintes (16) à (19) correspondent à l’ordre établi dans le classement des 12 produits du magazine. A noter que la valeur 0.1, dans certains de ces contraintes, permet simplement de satisfaire une inégalité stricte, en termesde notes globales, entre certains produits.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Les contraintes (20) à (29) permettent d’assurer l’appartenance de chaque nombre réel Uix(αix) à un intervalle lié à la note qualitative αix telle que donnée par le magazine.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.1-fonction-CheckAdditiveModel">1.1 fonction CheckAdditiveModel<a class="anchor-link" href="#1.1-fonction-CheckAdditiveModel">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>CheckAdditiveModel</strong> retourne un message d’erreur si le classement n’est pas explicable par un modèle type
-somme pondérée (dans ce cas, le programme linéaire ou système linéaire correspondant n’admet pas de solution
-réalisable). Au cas où cela est possible, le programme retournera alors des valeurs numériques à associer à chaque
-produit (pour chaque critère d’évaluation), ainsi que la valeur de la somme pondérée qui lui correspond, dans ce notebook et sous fichier <strong>Excel</strong> (répertoire <strong>data_solved</strong>)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>La fonction est construite pour être générique et sera appelée sur différentes propositions de résolution du problème</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.2">1.2<a class="anchor-link" href="#1.2">&#182;</a></h2><h3 id="1.2.1-Test-de-la-fonction-avec-le-classement-des-couches-culottes">1.2.1 Test de la fonction avec le classement des couches-culottes<a class="anchor-link" href="#1.2.1-Test-de-la-fonction-avec-le-classement-des-couches-culottes">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>La résolution du problème passe par une formalisation en Programme Linéaire</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Commentaires">Commentaires<a class="anchor-link" href="#Commentaires">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>On s'aperçoit qu'il n'y a pas de solution réalisable. Le classement présenté par le magazine n'est donc pas - avec les informations à notre disposition - explicable par un modèle de somme pondérée.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.2.2-CheckAdditiveModel-avec-le-classement-des-couches-lorsque-la-note-globale-de-chaque-couche-culotte-n&#8217;est-pas-fix&#233;e">1.2.2 CheckAdditiveModel avec le classement des couches lorsque la note globale de chaque couche-culotte n&#8217;est pas fix&#233;e<a class="anchor-link" href="#1.2.2-CheckAdditiveModel-avec-le-classement-des-couches-lorsque-la-note-globale-de-chaque-couche-culotte-n&#8217;est-pas-fix&#233;e">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>En prenant des scores quelconques entre 0 et 20 au lieu de prendre les scores fixés par le magazine on constate que le programme linéaire reste toujours non réalisable. Et donc qu'il n'existe pas un modèle de somme pondérée satisfaisant tous les critères énoncés par le magazine.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.2.3-Commentaires">1.2.3 Commentaires<a class="anchor-link" href="#1.2.3-Commentaires">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>La compréhension intuitive des résultats, suppose qu'il existe deux critères de classement : Performance et composition. La composition compte pour 40%, et la performance pour 60%.</p>
-<p>Or, en modélisant ce classement, avec ces coefficients liés à la performance et à la composition, on constate qu'il n'existe pas de solution réalisable exacte de ce problème via un modèle de somme pondérée.</p>
-<p>Ces résultats mettent en cause au moins la présentation de cette étude.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.3">1.3<a class="anchor-link" href="#1.3">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Dans cette question, nous allons supposer que l’évaluation globale n’est pas la même pour les couches-culottes
-“Naty” et “Pamp. Activ” d’une part, et les couches-culottes “Love &amp; Green” et “Lotus Baby” d’autre part.</p>
-<p>Pour cela, nous allons supprimer du programme PL1 les deux contraintes suivantes : <strong>fd = fe</strong> de l’équation (17)
-et <strong>fi = fj</strong> de l’équation (18).</p>
-<p>Nous allons également supprimer du programme PL1 la contrainte <strong>17 &lt; U2c(+++)</strong>,
-liée à la couche c-Pamp.Baby.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.3.1-Le-meilleur-et-le-pire-score-global-obtenu-par-le-produit-&#8220;Joone&#8221;">1.3.1 Le meilleur et le pire score global obtenu par le produit &#8220;Joone&#8221;<a class="anchor-link" href="#1.3.1-Le-meilleur-et-le-pire-score-global-obtenu-par-le-produit-&#8220;Joone&#8221;">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Meilleur-score">Meilleur score<a class="anchor-link" href="#Meilleur-score">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Pire-score">Pire score<a class="anchor-link" href="#Pire-score">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Commentaires">Commentaires<a class="anchor-link" href="#Commentaires">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>En supposant que les couches "Naty" et "Pamp. Activ", ainsi que les couches "Love &amp; Green" et "Lotus Baby" n'ont plus nécessairement le même score et en supposant également que la note de composition de la couche "Pamp Baby" n'est plus nécessairement supérieure à 17/20, on obtient les résultats suivants :</p>
-<p>Le score maximal obtenu pour la couche "Joone" est de 20/20. Le score minimal est de 17/20.</p>
-<p>On observe sous ces hypothèses, que la note de la couche "Love &amp; Green" passe de 9.5 à 10.6 soit une progression de 1.1 point.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.3.2-Le-meilleur-et-le-pire-score-global-obtenu-par-le-produit-&#8220;Lillydoo&#8221;">1.3.2 Le meilleur et le pire score global obtenu par le produit &#8220;Lillydoo&#8221;<a class="anchor-link" href="#1.3.2-Le-meilleur-et-le-pire-score-global-obtenu-par-le-produit-&#8220;Lillydoo&#8221;">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Meilleur-score">Meilleur score<a class="anchor-link" href="#Meilleur-score">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Pire-Score">Pire Score<a class="anchor-link" href="#Pire-Score">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Commentaires">Commentaires<a class="anchor-link" href="#Commentaires">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Le pire score pour LillyDoo est 6/20 et le meilleur résultat espéré est 10,1. 
-Sous ces hypothèses, en maximisant le score de "LillyDoo", on a "Love &amp; Green", "Pomette" et "illydoo" voient leurs notes passer au-dessus de 10.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.3.3-Conclusions">1.3.3 Conclusions<a class="anchor-link" href="#1.3.3-Conclusions">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Afin de comprendre le processus de notation suivi par le magazine, nous avons observé les scores de toutes les couches en minimisant la note de la pire couche et en la maximisant.</p>
-<p>Les scores globaux changent d’une manière significative, tandis que le classement reste inchangé. Notons que le classement présenté au préalable comprenait une égalité d’une part entre quatre couches culottes qui avaient le score de 12,5 et d’autre part entre trois couches qui avaient le score de 9,5.</p>
-<p>Le relâchement des contraintes dans notre programme linéaire a pour effet de discriminer les couches au niveau des notes mais pas au niveau du classement.</p>
-<p>Nous avons calculé deux tests de corrélation : Spearman et Kendall. Un coefficient de corrélation calcule dans quelle mesure deux variables tendent à changer ensemble. Le coefficient décrit l'importance et le sens de la relation.</p>
-<p>Nous avons utilisé ces deux coefficients car ils traitent le cas où la relation n’est pas linéaire. Ces deux coefficients comparent les rangs obtenus selon les notes.</p>
-<p>En relâchant les contraintes d’égalité, nous avons obtenu deux scores différents mais qui gardent le même rang pour chaque couche. D’où l’invariance du coefficient de Spearman et Kendall dans le cas de maximisation et minimisation qui prennent les valeurs respectives de 98% et 95%.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.4">1.4<a class="anchor-link" href="#1.4">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A présent, nous choisissons de ne plus tenir compte de l’ordre des produits fourni dans le classement publié par le
-magazine. En d’autres termes, nous supprimons les contraintes <strong>(16)</strong> à <strong>(19)</strong>. Nous allons également supprimer du
-programme PL1 la contrainte <strong>17 &lt; U2c(+++)</strong>, liée à la couche <strong>c-Pamp.Baby</strong>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.4.1-Score-global-maximal-obtenu-par-chacun-des-12-produits">1.4.1 Score global maximal obtenu par chacun des 12 produits<a class="anchor-link" href="#1.4.1-Score-global-maximal-obtenu-par-chacun-des-12-produits">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Maintenant nous sommes dans le cas ou on tient plus compte du classement fourni par le magazine. On exécute notre programme linéaire qui cherche la meilleure note espérée par chaque couche et on observe :</p>
-<p>La meilleure note espérée est comprise entre 10,1/20 et 20/20.
-Le classement des couches changent (Pamp Activ, Mots d’enfants descendent dans le classement).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.4.2-Conclusion">1.4.2 Conclusion<a class="anchor-link" href="#1.4.2-Conclusion">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Nous observons une baisse des coefficients de Spearman et Kendall qui est dû au changement de rang des couches.</p>
-<p>La positivité de ce coefficient indique qu’il existe une corrélation, et que si les scores de départ augment, les scores obtenus augmenteront aussi.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2-Application-d&#8217;une-d&#233;marche-de-classification-multicrit&#232;re-:-la-m&#233;thode-ELECTRE-TRI">2 Application d&#8217;une d&#233;marche de classification multicrit&#232;re : la m&#233;thode ELECTRE TRI<a class="anchor-link" href="#2-Application-d&#8217;une-d&#233;marche-de-classification-multicrit&#232;re-:-la-m&#233;thode-ELECTRE-TRI">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Dans cette partie, au lieu d’attribuer une note (/20) à chaque couche-culotte, nous allons plutôt l’affecter à une classe à l’aide d’une approche ne nécessitant pas une normalisation des critères : La méthode ELECTRE TRI. Cette dernière est une approche d’Aide MultiCritère à la Décision qui vise à résoudre des problèmes d’affectation (classification) d’objets dans des catégories prédéfinies.</p>
-<p>Comme indiqué ci-dessus, les poids associés aux deux critères du classement des couches-culottes, Performance et Com- position, sont donnés par le vecteur W = (3/5; 2/5). Nous retenons ici comme catégories ou classes, les 5 catégories suivantes (compatibles avec celles suggérées par le magazine) : ‘Très Bon” (catégorie C5), “Bon” (catégorie C4), “Ac- ceptable” (C3), “Insuffisant” (catégorie C2) et “Inacceptable” (C1).</p>
-<p>La méthode ELECTRE-TRI consiste alors à affecter chacune des 12 couches-culottes à une de ces 5 catégories.
-On va également supposer que chaque catégorie Ci est délimitée par une frontière supérieure notée bi+1 et une frontière inférieure bi. Les frontières bi+1 et bi sont appelées “profils” et représentent des couches-culottes de référence qui peuvent être fictives. Il y a une dominance paréto-stricte entre bi+1 et bi. Pour ce classement des couches, nous aurons :
-• C1 délimitée par b2 et b1 ; 
-• C2 délimitée par b3 et b2 ; 
-• C3 délimitée par b4 et b3;
-• C4 délimitée par b5 et b4;
-• C5 délimitée par b6 et b5.</p>
-<p>Ainsi, comme l’affectation se fait dans 5 catégories distinctes, le profil b3 représente la frontière entre les classes “Très Bon” et “Bon”, et b2 la frontière entre les classes “Bon” et “Moyen”.</p>
-<p>Le principe de la méthode ELECTRE TRI consiste, non pas à comparer les couches-culottes entre elles, mais à les comparer aux six couches-culottes de référence b6, b5, b4, b3, b2 et b1 dont les évaluations sur chaque critère sont résumés à la Table 2.</p>
-<p>Attention : dans ce tableau, les profils b6 et b1 doivent toujours avoir des valeurs extrêmes, ne pouvant jamais être atteintes, sur chaque critère.</p>
-<p>Ainsi, l’affectation d’une couche-culotte à une catégorie dépendra de sa comparaison aux profils b6, b5, b4, b3, b2 et b1. Plus formellement, l’affectation d’une couches-culottes dans les catégories se base sur le concept de sur-classement.</p>
-
-</div>
+<h3 id="**-Les-classements-publi&#233;s-vous-paraissent-ils-clairs,-explicables,-ou-opaques-(pour-n&#8217;importe-quel-consommateur)-?">** Les classements publi&#233;s vous paraissent-ils clairs, explicables, ou opaques (pour n&#8217;importe quel consommateur) ?<a class="anchor-link" href="#**-Les-classements-publi&#233;s-vous-paraissent-ils-clairs,-explicables,-ou-opaques-(pour-n&#8217;importe-quel-consommateur)-?">&#182;</a></h3>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/tableau_2.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>On dira qu’une couche-culotte H surclasse le profil bi (respectivement le profil bi surclasse la couche-culotte H) et on note H S bi (respectivement bi S H) si H est au moins aussi bon que bi (respectivement bi est au moins aussi bon que H) sur une majorité de les critères (la majorité étant définie par un seuil de majorité λ). Les étapes de la méthode ELECTRE TRI se décrivent comme suit :</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/maths.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/somme.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/question.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.5.1-Matrices-de-concordances-partielles-et-globales">2.5.1 Matrices de concordances partielles et globales<a class="anchor-link" href="#2.5.1-Matrices-de-concordances-partielles-et-globales">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="a.-Test-de-la-fonction-de-creation-des-matrices-de-concordance-Partielles-pour-les-couches-culottes">a. Test de la fonction de creation des matrices de concordance Partielles pour les couches culottes<a class="anchor-link" href="#a.-Test-de-la-fonction-de-creation-des-matrices-de-concordance-Partielles-pour-les-couches-culottes">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>vu qu'on a choisi de maximiser l'algorithme va executer la fonction ConcordancePartielHbi et ConcordancebiH selon :</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/concorde.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="commentaires">commentaires<a class="anchor-link" href="#commentaires">&#182;</a></h6>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>on voit que la fonction  concordanceHbi et concordance biH renvoit une liste de matrice selon les nombre de critères et pour les couches on aura deux matrices , une pour la performance et une pour la composition .</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="b.-Test-de-la-fonction-de-creation-des-matrices-de-concordance-globale-pour-les-couches-culottes">b. Test de la fonction de creation des matrices de concordance globale pour les couches culottes<a class="anchor-link" href="#b.-Test-de-la-fonction-de-creation-des-matrices-de-concordance-globale-pour-les-couches-culottes">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>pour creer la matrice de concordance globale pour chaque critère de classment de produit on suit la formule suivante :</p>
-
-</div>
 </div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../docs/globale.png"></p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
+<pre><code>Le classement des couches culottes nous semble être opaque, car on s’interroge sur la façon de calculer le score final d’une couche en se basant sur les évaluations : +++,---,++,--,+,-,...Etc. On a supposé l’existence d’un model de somme pondérée. Or, on a constaté l’inexistence d’une solution réalisable qui respecte le classement donné par le magazine. On suggère la mise en place d’une notice expliquant le processus d'évaluation suivi.
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>la premiere matrice correspond au matrice  C(H,bi) de concrdance globale pour les deux critères Performance et Composition .</p>
-<p>la deuxième matrice correspond au matrice  C(bi,H) de concrdance globale pour les deux critères Performance et Composition</p>
+Le classement des logiciels est plus cohérent, car on a pu trouver un model de somme pondérée se basant sur les quatre critères d’évaluation. Les deux classements étant faits par le même magazine, on aurait apprécié plus de précisions sur les méthodes utilisées.</code></pre>
 
 </div>
 </div>
@@ -13835,69 +13215,34 @@ On va également supposer que chaque catégorie Ci est délimitée par une front
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.5.3-La-methode-de-surclassment-des-couches-culottes">2.5.3 La methode de surclassment des couches culottes<a class="anchor-link" href="#2.5.3-La-methode-de-surclassment-des-couches-culottes">&#182;</a></h2>
+<h3 id="**-Ces-classements-vous-paraissent-ils-non-biais&#233;s-?">** Ces classements vous paraissent-ils non biais&#233;s ?<a class="anchor-link" href="#**-Ces-classements-vous-paraissent-ils-non-biais&#233;s-?">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>on dit :</p>
-<p>H surclasse bi et on notera H S bi si et seulement si C(H, bi) ≥ λ.</p>
-<p>bi surclasse H et on notera bi S H si et seulement si C(bi, H) ≥ λ.</p>
-<p>PS : λ est le seuil de majorité généralement superieure à 50 %</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
+<pre><code>Pour savoir si les classements sont biaisés ou pas, nous allons comparer les classements obtenus par le magazine par les classements que nous avons trouvé. 
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.5.4-Phase-final-:-Procedures-d'evaluation-Optimiste-et-pessimiste">2.5.4 Phase final : Procedures d'evaluation Optimiste et pessimiste<a class="anchor-link" href="#2.5.4-Phase-final-:-Procedures-d'evaluation-Optimiste-et-pessimiste">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="a.-Test-des-procedures-EvalOptimiste--et-EvalPessimiste-ainsi-les-taux-de-mauvaise-classification(optimiste-pessimiste)-selon-&#955;-=-75-%">a. Test des procedures EvalOptimiste  et EvalPessimiste ainsi les taux de mauvaise classification(optimiste pessimiste) selon &#955; = 75 %<a class="anchor-link" href="#a.-Test-des-procedures-EvalOptimiste--et-EvalPessimiste-ainsi-les-taux-de-mauvaise-classification(optimiste-pessimiste)-selon-&#955;-=-75-%">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
+Nous avons précédemment dit que les classements obtenu par la méthode Electre tri (peu importe la méthode d’affectation utilisée) ne correspondent pas aux résultats du magazine ( le taux de mauvaise classification le plus bas est de 33,3 % pour les couches-culottes et il est de 40% pour les logiciels de mots de passe) donc d’après ces chiffres les classements sont probablement biaisées.</code></pre>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="b.-Test-des-procedures-EvalOptimiste--et-EvalPessimiste-ainsi-les-taux-de-mauvaise-classification(optimiste-pessimiste)-selon-&#955;-=-55-%">b. Test des procedures EvalOptimiste  et EvalPessimiste ainsi les taux de mauvaise classification(optimiste pessimiste) selon &#955; = 55 %<a class="anchor-link" href="#b.-Test-des-procedures-EvalOptimiste--et-EvalPessimiste-ainsi-les-taux-de-mauvaise-classification(optimiste-pessimiste)-selon-&#955;-=-55-%">&#182;</a></h3>
-</div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="c.Interpretation-des-resultats-pour-&#955;-=-55-%">c.Interpretation des resultats pour &#955; = 55 %<a class="anchor-link" href="#c.Interpretation-des-resultats-pour-&#955;-=-55-%">&#182;</a></h3>
+<h3 id="**-Le-magazine-devrait-il-en-dire-plus-sur-la-mani&#232;re-de-classer-les-produits-?-si-oui,-comment-devra-t-elle-&#234;tre-transparente-pour-convaincre-le-lecteur-?">** Le magazine devrait-il en dire plus sur la mani&#232;re de classer les produits ? si oui, comment devra-t-elle &#234;tre transparente pour convaincre le lecteur ?<a class="anchor-link" href="#**-Le-magazine-devrait-il-en-dire-plus-sur-la-mani&#232;re-de-classer-les-produits-?-si-oui,-comment-devra-t-elle-&#234;tre-transparente-pour-convaincre-le-lecteur-?">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Les résultats issus des deux procédures pessimiste et optimiste (Colonne 3 et 4), et les taux de mauvaise classification obtenus montrent que la procédure pessimiste est plus efficace en terme de performance et que la procédure optimiste est plus restrictive.
-Ceci est dû au fait que pour pouvoir affecter une couche culotte à une catégorie donnée, il faut que le site soit jugé au moins “aussi performant” que la frontière basse de la catégorie. Ce qui traduit une certaine prudence dans la procédure d’affectation.</p>
-<p>Nous remarquons que : 
-les classements proposés par les deux procédures ne sont pas les mêmes quand lambda=0.75, par contre ces derniers sont identiques lorsque lambda=0.55.
-La couche jugée la meilleure par les deux procédures est la couche a-Joone, malgré le faite qu’elle soit la plus chère couche-culotte soit 0,40 euros l’unité et qu’elle ne soit pas bio. Ce qui veut dire qu’effectivement ces deux critères prix et bio ne rentrent pas dans la notation fournie par les utilisateurs.</p>
-<p>Tandis que la pire couche est Lillydoo selon la procédure pessimiste ainsi que l-Lillydoo et  h-Mots d’enfants d’après la procédure optimiste.
-Quant aux couches b-Pamp. Prem, c-Pamp. Baby et d-Naty, ils sont considérés comme bons sans être toutefois meilleurs. 
-Les résultats obtenues par Electre tri comparés aux résultats obtenues par le magazine ne sont pas assez identiques donc on peut dire que la manière dont les produits ont été classés par le magazine n’est pas fiable.</p>
+<p>En lisant les résultats d’essai du magazine, nous remarquons que les notes attribuées aux critères et aux sous-critères sont qualitatifs (en forme de ++ et -- ) alors que la note globale du produit est numérique. 
+Donc on peut voir qu’il ya une incohérence et un manque de transparence sur la façon par laquelle la passation des notes qualitatifs vers les notes numériques a été faite.</p>
+<p>Nous suggérons l’utilisation, soit des notes qualitatifs, soit des notes numériques dans toute l’étude et ne pas mélanger les deux.</p>
 
 </div>
 </div>
@@ -13905,23 +13250,19 @@ Les résultats obtenues par Electre tri comparés aux résultats obtenues par le
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2>
+<h3 id="**-Pr&#233;f&#233;rerez-vous-une-&#233;valuation-globale-num&#233;rique-ou-qualitative-(comme-ELECTRE-TRI)-?">** Pr&#233;f&#233;rerez-vous une &#233;valuation globale num&#233;rique ou qualitative (comme ELECTRE TRI) ?<a class="anchor-link" href="#**-Pr&#233;f&#233;rerez-vous-une-&#233;valuation-globale-num&#233;rique-ou-qualitative-(comme-ELECTRE-TRI)-?">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Après l’analyse que nous avons réalisé en utilisant deux méthodes différentes dans les parties précédentes, une méthode par fonction d’utilité (somme pondérée) et une méthode basée sur le surclassement (Electre tri), Nous réalisons que nous obtenons des résultats presque similaires en terme de meilleure couche élue qui est la couche a-Joone.</p>
-<p>On déduit que, certes ces deux méthodes sont conçues pour l’analyse multicritères de données mais elles ne répondent pas au même objectif qui est de détecter le meilleur produit ou action pour la méthode de somme pondérée, ou qui est de classifier un ensemble de produits dans le cas de la méthode Electre tri. En terme de classement le classement des produits n’est pas le même pour les deux méthodes.</p>
-<p>Parmi les désavantages de la première méthode (Somme pondérée) c’est la compensation des mauvais critères par les critères plus performants. En synthétisant le problème en une fonction unique, on élimine de l'information importante en masquant les critères discriminants. En effet, un mauvais critère pourra toujours être compensé ici par un bon critère. 
-Pour la deuxième méthode c’est la multitude des paramètres utilisés (seuil de majorité, poids des critères ..) mais cette dernière reste une méthode très efficace.</p>
+<p>Sur les décisions que nous avons à prendre,nous pouvons faire face à différents problématiques, on peut avoir comme objectif soit, de sélectionner une alternative parmi plusieurs, soit de trier ou affecter les alternatives possibles, soit de classer les alternatives, soit de décrire les alternatives. Et c’est donc selon l’objectif envisagé que nous pouvons choisir ou avoir une préférence pour une évaluation globale numérique ou qualitative.</p>
+<p>Par exemple, si on considère une banque X qui souhaite faire la promotion d’un nouveau produit destiné aux clients fragiles financièrement (un crédit immobilier à taux très faible par exemple), dans ce cas nous allons privilégier une évaluation qualitative comme ELECTRE TRI (élaboré sur des critères comme le revenu, le niveau de surendettement) afin de dégager la liste de clients correspondants à la plus mauvaise catégorie. L’inconvénient de ces méthodes est qu’il faut définir de nombreux paramètres et il faut par la suite mettre en place des indicateurs d’analyse de sensibilité et de robustesse.</p>
+<p>Nous prenons un autre exemple, où un supermarché souhaite élire “the employee of the month” dans ce cas nous allons avoir une préférence pour la méthode numérique afin d’avoir plus de précision dans les résultats. Pour ce faire, nous allons attribuer une note à chaque employé et l’employé le mieux noté sera retenu.</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 
