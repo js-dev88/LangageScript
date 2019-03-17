@@ -4,6 +4,24 @@ from scipy.stats import spearmanr,kendalltau
 from optlang import Model, Variable, Constraint, Objective
 
 def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel', with_scores=False, update_model=None):
+    """
+    Résolution du programme linéaire
+        
+    Args:
+        csv_name : path du fichier de données (répertoire data)
+        eval_expr: variable de la fonction objectif ou 'all' pour appliquer direction à toutes les variables
+        direction: min / max  variables 
+        model_name: nom du modèle
+        type: excel par défaut, 'csv' possible
+        with_scores : mode avec ou sans score (Q2 / Q3 / Q4)
+        update_model : liste des éléments pou la suppression / modification de contraintes
+        
+    
+    Return: message d'erreur si pas de solution
+            Dataframe avec les résultats corespondants dans la colonne score
+            Cas max al (Q4) Dataframe avec toutes les solutions correspondants 
+            au max des variables dans la colonne score
+    """
     
     df = loadModel(csv_name, type)
     if eval_expr != 'all':
@@ -18,19 +36,46 @@ def checkAdditiveModel(csv_name, eval_expr, direction, model_name, type='excel',
     return result
     
 def displayAllProductMaxScore(df, direction , model_name, update_model):
+    """
+    Construction du Dataframe de la question 4
+        
+    Args:
+        df : Dataframe original issu du fichier excel
+        direction: min / max  variables
+        model_name: nom du modèle
+        update_model : liste des éléments pou la suppression / modification de contraintes
+        
     
+    Return: Renvoie un Dataframe prêt à être exporter / afficher
+    """
     all_results = None
     for i in range(len(df['Produit'])):
          model, df_criteria_list = linearProgramSolver(df, f'y{i+1}', direction, model_name,False, update_model) 
          result = displayModel(model, df_criteria_list)
+         #Construction du dataframe pour la preière variable
          if all_results is None:
              all_results = pd.DataFrame(columns=result.columns)
+         #Insertion du score max pour la variable dans le dataframe
          all_results = all_results.append(result.iloc[i])
          
     return all_results
     
         
 def linearProgramSolver(df, eval_expr, direction, model_name, with_scores = False, update_model=None):
+    """
+    Construction et résolution du programme linéaire hors question 4
+        
+    Args:
+        df : Dataframe original issu du fichier excel
+        eval_expr: variable de la fonction objectif ou 'all' pour appliquer direction à toutes les variables
+        direction: min / max  variables
+        model_name: nom du modèle
+        with_scores : mode avec ou sans score (Q2 / Q3 / Q4)
+        update_model : liste des éléments pou la suppression / modification de contraintes
+        
+    
+    Return: Renvoie un Dataframe prêt à être exporter / afficher
+    """
     df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries, _, _, _= parseDataframe(df)
     nb_criteria = len(df_criteria_list.columns)-1
     
@@ -61,6 +106,16 @@ def linearProgramSolver(df, eval_expr, direction, model_name, with_scores = Fals
     return model, df_criteria_list 
 
 def update_variable_list_from_dict(update_model, variable_list):
+    """
+    Met à jours les contraintes portant sur les bornes des variables exemple : 17 < xc2
+    Ne fonctionne qu'en mode mis à jour (nous n'utilisons pas le mode de suppression)
+        
+    Args:
+        update_model : dict avec la modification (nouvel objet Variable cf Main)
+        variable_list: listes variables existantes
+
+    Return: la liste des variables mise à jour
+    """
     if len(update_model['upd']) > 0:
         for var_to_update in update_model['upd']:
             for k, v in variable_list.items():
@@ -71,6 +126,15 @@ def update_variable_list_from_dict(update_model, variable_list):
     return variable_list
                     
 def update_constraint_list_from_dict(update_model, constraint_list):
+    """
+    Supprime des contraintes de la liste 
+        
+    Args:
+        update_model : dict avec la modification (liste des contraintes à supprimer)
+        constraint_list: listes contraintes existantes
+
+    Return: la liste des contraintes mise à jour
+    """
     if len(update_model['del']) > 0:
         for constraint_to_del in update_model['del']:
             for constraint in constraint_list:
@@ -80,16 +144,38 @@ def update_constraint_list_from_dict(update_model, constraint_list):
     return constraint_list
     
 def buildModel(constraint_list, obj, model_name):
-    
+    """
+    Construit le model et l'excute pour le résoudre
+    En décommentant les lignes, il est possible d'afficher les élements constitutifs d'un modèle (debug)
+        
+    Args:
+        constraint_list : listes contraintes existantes
+        obj: fonction objectif
+        model_name: nom du model
+
+    Return: l'objet modèle
+    """
     model = Model(name = model_name)
     model.objective = obj
     model.add(constraint_list)
     model.optimize() 
-    
+    #Print du modèle pour débug
+#    for cons in model.constraints.items():
+#        print(cons[1])
+#    for var in model.variables.items():
+#        print(var)
     return model
 
 def displayModel(model, df_criteria_list):
-    
+    """
+    Construit un dataframe prêt à être exporter / afficher
+        
+    Args:
+        model : Un objet Model
+        df_criteria_list: liste des critères du classement
+
+    Return: un dataframe de résultats
+    """
     col_names = list(df_criteria_list)
     display_df  = pd.DataFrame(columns = col_names)
     display_df.iloc[:,0] = df_criteria_list.iloc[:,0]
@@ -136,7 +222,7 @@ def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme, with_score
             i+=1
             var_x = Variable (f'x{i}', lb=row[f'Min_value_{criteria}'], ub = row[f'Max_value_{criteria}'])
             variable_list_x.append(var_x)
-            
+    #Mode sans les scores : on rajoute les variables de score       
     if not with_scores:
         for idx, row in df_criteria_bareme.iterrows():
             var_y = Variable (f'y{idx+1}', lb = dict_boundaries['min'], ub = dict_boundaries['max'])
@@ -145,6 +231,19 @@ def buildVariableDefinitionList(df_criteria_list, df_criteria_bareme, with_score
     return variable_list_x, variable_list_y
 
 def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, df_score, with_scores):
+    """
+    Construction des contraintes du modèle
+        
+    Args:
+        coeff_list : liste des coefficients
+        variable_list: liste des variables
+        nb_criteria: nombre de critères
+        df_score: liste des scores
+        with_scores: mode avec ou sans score 
+        
+    
+    Return: les listes des contraintes du modèle
+    """
     
     constraint_list = []
     constraint_num = 0
@@ -155,17 +254,29 @@ def buildConstraintDefinitionList(coeff_list, variable_list, nb_criteria, df_sco
            coeff_var = (coeff_list[i], variable_list['variable_list_x'][var_index-1])
            list_of_parameter.append(coeff_var)
            var_index+=1
+        #Mode sans les scores, on modifie les contraintes de base
         if not with_scores:
             constraint_list.append(createConstraint(list_of_parameter, constraint_num, variable_list_y = variable_list['variable_list_y'][constraint_num]))
         else:
             constraint_list.append(createConstraint(list_of_parameter, constraint_num, score = df_score[constraint_num]))
         constraint_num += 1
+    #Mode sans les scores, on rajoute les contraintes d'égalités et d'inégalités entre les variables de scores
     if not with_scores:
         constraint_list += createScoreConstraint(df_score, variable_list['variable_list_y'], constraint_num)
     return constraint_list
                
 def createConstraint(list_of_parameter, constraint_num, score=None, variable_list_y=None):
+    """
+    Constructeur de contraintes
+    
+    Args:
+        list_of_parameter : listes des paramètres (0.4 * x1, 0.6 * x2 ect...)
+        constraint_num: numéro de la contrainte
+        score: forme de la contrainte (avec ou sans score)
+        variable_list_y: liste des variables de score (y1 = fa)
         
+    Return: la contrainte
+    """   
     list_expr = []
     for t in list_of_parameter:
         expr = t[0]* t[1]
@@ -174,7 +285,7 @@ def createConstraint(list_of_parameter, constraint_num, score=None, variable_lis
     expr = list_expr[0]
     for exp in list_expr[1:]:
         expr += exp
-
+    #Construit la contrainte en fonction du mode avec ou sans score
     if score != None:
         constraint = Constraint(expr, name=f'c{constraint_num+1}', lb = score, ub = score)
     else:
@@ -183,7 +294,17 @@ def createConstraint(list_of_parameter, constraint_num, score=None, variable_lis
     return constraint            
 
 def createScoreConstraint(df_score, variable_list_y, constraint_num):
+    """
+    Constructeur de contraintes de score (égalité et inégalité entre les différents score de produits)
     
+    Args:
+        df_score : la colonne des score
+        variable_list_y: liste de variables correspondant au score (y1 = fa)
+        constraint_num: Numéro de la contrainte
+        variable_list_y: liste des variables de score
+        
+    Return: la liste des contraintes portant sur les scores
+    """   
     scoreContraints = []
     for i in range(len(df_score)-1):
         if df_score.iloc[i] != df_score.iloc[i+1]:
@@ -193,7 +314,16 @@ def createScoreConstraint(df_score, variable_list_y, constraint_num):
     return scoreContraints
     
 def createUpdateModel(variable_list, constraint_name_list):
-      
+    """
+    Crée un dict avec la liste des variables et des contraintes à mettre à jour / supprimer
+    
+    Args:
+        variable_list : liste des variables passées en paramètre pour mise à jour
+        constraint_name_list: liste des contraintes à supprimer
+       
+        
+    Return: le dict correctement formé
+    """     
     update_model = {}
     update_model['variable'] = {}
     update_model['constraint'] = {}
@@ -203,11 +333,22 @@ def createUpdateModel(variable_list, constraint_name_list):
     return update_model
 
 def compareRankings(score_df1, score_df2):
+    """
+    calcule les indicaeurs sur es classements pour le programme linéaire correspondant
+    Spearman, Kendall et la différence moyenne
+    Affiche les résultats en console
+    
+    Args:
+        score_df1 : Dataframe Original
+        score_df2: Dataframe à comparer (issu du modèle)
+       
+        
+    Return: le dict de résultat prêt à être exporté / affiché
+    """    
     result = {}
     result['coef - Spearman'], result['p - Spearman'] = spearmanr(score_df1, score_df2)
     result['tau - Kendall'],result['p_val - Kendall'] = kendalltau(score_df1, score_df2)
     result['Diff Moyenne'] = (score_df2.sum() - score_df1.sum()) / len(score_df1)
-    print(len(score_df1))
     print(result)
     return result
 

@@ -40,6 +40,10 @@ def parseDataframe(df):
         df_criteria_bareme : un Dataframe avec les colonnes de critères
             et leurs bornes respectives por chaque lignes
         dict_boundaries : un Dict avec les valeurs min et max du barème
+        df_criteria_profils : liste des profils avec les bornes correspondantes
+        score_bymagazine : liste des scores sous forme de classes
+        dict_categories: dict des labels des catégories
+        
     """
     
     df_score  = df['Score'].copy()
@@ -144,32 +148,57 @@ def buildScoreByMagazine(df):
     
 
 def getOriginalData(csv_name, type='excel'):
+    """
+    renvoie le Dataframe original du fichier
+        
+    Args:
+        df: Le path du fichier
+    Return: Dataframe
+    """
     df = loadModel(csv_name, type)
     df_score  = df['Score'].copy()
     df_criteria_list = buildCriteriaList(df)
-    #df_criteria_list = df.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil','Performance_Profil','Composition_Profil'], 1).copy()
     df = df_criteria_list.join(df_score)
     return df
 
 def getElectreTriData(csv_name, type='excel'):
+    """
+    renvoie les colonnes Produits et Note_magazine
+        
+    Args:
+        df: Le path du fichier
+    Return: Dataframe
+    """
     df = loadModel(csv_name, type)
     df_produit  = df[['Produit', 'Note_magazine']]
     df = df_produit
     return df
 
 def exportInExcel(filename, sheetname, df_list, name_list, rankings_list, electre=False):
-    
-    
+    """
+    Exporte les résulats sous forme de fichier excel
+        
+    Args:
+        filename: Le path du fichier
+        sheetname: Le nom de l'onglet excel
+        df_list: liste des dataframes à exporter
+        name_list: Liste des noms de chaque dataframe
+        rankings_list: Liste des résultats à exporter
+        electre: export Electre tri par défaut à False
+        
+    Return: un objet Workbook
+    """
+    #si le fichier n'existe pas on le cree
     if not os.path.isfile(filename):
         workbook = Workbook()
         workbook.save(filename)
         
     workbook = load_workbook(filename, read_only=False)
-    
+    #Si l'onglet existe on réécrit par dessus
     if 'Sheet' in workbook.sheetnames:
         delete_sheet = workbook.get_sheet_by_name('Sheet')
         workbook.remove_sheet(delete_sheet) 
-
+    #Si l'onglet n'existe pas on le cree
     if sheetname not in workbook.sheetnames:
          workbook.create_sheet(sheetname)
          
@@ -178,6 +207,19 @@ def exportInExcel(filename, sheetname, df_list, name_list, rankings_list, electr
     return workbook
 
 def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, electre=False):
+    """
+    Ecrit les résultats dans un fichier excel
+        
+    Args:
+        workbook: le fichier excel dans un objet Workbook
+        sheetname: Le nom de l'onglet excel
+        df_list: liste des dataframes à exporter
+        name_list: Liste des noms de chaque dataframe
+        rankings_list: Liste des résultats à exporter
+        electre: export Electre tri par défaut à False
+        
+    Return: un objet Workbook
+    """
     
     sheet = workbook[sheetname]
     thin_border = thinBorders()   
@@ -185,7 +227,8 @@ def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, elec
     start_line = 2
     start_col = 2
     for idx, df in enumerate(df_list):
-    
+        
+        #Pourchaque dataframe, on écrit le contenu dans le fichier
         rows = dataframe_to_rows(df, index=False, header=True)           
         start_cell(sheet, start_line, start_col, name_list, idx, thin_border)
         for r_idx, row in enumerate(rows, start_line+1):
@@ -197,13 +240,15 @@ def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, elec
         min_col = start_col
         max_col = c_idx
         
+        #Résultats et indicateurs
         if not electre:
             if idx !=0:
                 indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
         else:
             print(rankings_list)
             indicators(rankings_list, idx, sheet, max_row, min_col, thin_border)
-            
+        
+        #Style
         blue_col(sheet, min_row, max_row, min_col, thin_border)
         black_row(sheet, min_col, max_col, min_row, thin_border)
         columns_width(sheet)
@@ -213,6 +258,10 @@ def writeInWorkbook(workbook, sheetname, df_list, name_list, rankings_list, elec
     return workbook
 
 def thinBorders():
+    """
+    Crée les bordures des cases
+    Return: un objet Border
+    """
     thin_border = Border(left=Side(style='thin'), 
              right=Side(style='thin'), 
              top=Side(style='thin'), 
@@ -220,6 +269,19 @@ def thinBorders():
     return thin_border
 
 def indicators(rankings_list, idx, sheet, max_row, min_col, thin_border):
+    """
+    Met en page les différents indicateurs dans l'onglet excel
+        
+    Args:
+        rankings_list: Liste des résultats à exporter
+        idx: numero du Dataframe
+        sheet: onglet Excel
+        max_row: dernière ligne du Dataframe
+        min_col: première colonne du Dataframe
+        thin_border: objet border
+   
+    """
+    
     rankings = rankings_list[idx-1]
     i = 3
     for key, value in rankings.items():
@@ -232,6 +294,18 @@ def indicators(rankings_list, idx, sheet, max_row, min_col, thin_border):
         i += 1
 
 def start_cell(sheet, start_line, start_col, name_list, idx, thin_border):
+    """
+    Calcul la cellule de départ pour chaque dataframe
+        
+    Args:
+        sheet: onglet Excel
+        start_line: ligne de départ
+        start_col: colonne de départ
+        name_list: liste des titres à affecter à chaque tableu
+        idx: indice du dataframe
+        thin_border: objet border
+   
+    """
     
     start_cell = sheet[get_column_letter(start_col)+str(start_line)]
     sheet.merge_cells(get_column_letter(start_col)+str(start_line)+':'+
@@ -241,7 +315,17 @@ def start_cell(sheet, start_line, start_col, name_list, idx, thin_border):
 
 
 def blue_col(sheet, min_row, max_row, min_col, thin_border):
-    
+    """
+    Met en page les colonnes des tableaux
+        
+    Args:
+        sheet: onglet Excel
+        min_row: ligne de départ
+        max_row: dernière ligne du tableau
+        min_col: colonne à coloriser
+        thin_border: objet border
+   
+    """
     for row in range(min_row+1,max_row+1):
         cell = sheet[get_column_letter(min_col)+str(row)]
         cell.style = 'Pandas'
@@ -250,7 +334,17 @@ def blue_col(sheet, min_row, max_row, min_col, thin_border):
         cell.border = thin_border
         
 def black_row(sheet, min_col, max_col, min_row, thin_border):
-    
+    """
+    Met en page les headers de tableau
+        
+    Args:
+        sheet: onglet Excel
+        min_col: colonne de départ
+        max_col: dernière colonne du tableau
+        min_row: ligne de départ
+        thin_border: objet border
+   
+    """
     for col in range(min_col,max_col+1):
         cell = sheet[get_column_letter(col)+str(min_row)]
         cell.style = 'Pandas'
@@ -259,7 +353,9 @@ def black_row(sheet, min_col, max_col, min_row, thin_border):
         cell.border = thin_border
 
 def columns_width(sheet):
-    
+    """
+    Ajuste la largeur des colonnes
+    """
     for i, col in enumerate(sheet.columns):
         sheet.column_dimensions[get_column_letter(i+1)].width = 20
     

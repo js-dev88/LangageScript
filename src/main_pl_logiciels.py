@@ -9,11 +9,15 @@
 """
 
 
-from ressources.system import checkAdditiveModel, createUpdateModel, compareRankings
+from system import checkAdditiveModel, createUpdateModel, compareRankings
 from optlang import Variable
-from ressources.loader import getOriginalData, exportInExcel
+from loader import getOriginalData, exportInExcel
 
 def main():
+    #Pour lancer une nouvelle analyse portant sur d'autres classements il faut : 
+        #mettre un fichier data valide (exemples dans le projet)
+        #renseigner le nom du fichier d'export
+        #Modifier les contraintes des variables update_model_Q3 l.59 et update_model_Q4 l.141
 #------------------------------------------------------------  
 #Q2.1
 #------------------------------------------------------------
@@ -144,7 +148,7 @@ def main():
     
    model_name_7 = 'Programme Lineaire - Score global maximal pour chaque produit'
    result_4_1_all_max = checkAdditiveModel(csv_name=csv_name,
-                      model_name=model_name_5,
+                      model_name=model_name_7,
                       eval_expr='all',
                       direction='max',
                       update_model=update_model_Q4)
