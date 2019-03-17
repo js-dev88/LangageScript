@@ -48,25 +48,29 @@ def parseDataframe(df):
     
     df_criteria_list = buildCriteriaList(df)
     
-    #df_criteria_profils = df.drop(['Produit','Performance','Composition','Score', 'Coefficient','Note','Min_value','Max_value','Note_magazine','Profil'], 1).copy()
-    df_criteria_profils=buildProfils(df)
+    df_criteria_profils=buildProfils(df,df_criteria_list)
     df_criteria_bareme = buildCriteriaBaremedf(df_criteria_list, df_bareme)
+    
     dict_boundaries = {}
     dict_boundaries['min'] = df_bareme['Min_value'].min()
     dict_boundaries['max'] = df_bareme['Max_value'].max()
-    score_bymagazine= buildScoreByMagazine(df)
     
-    #print(df_criteria_list.columns)
-    #print(df_criteria_list["Performance"])
+    score_bymagazine= buildScoreByMagazine(df)
+    dict_categories = buildDictCategorie(df)
 
-    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries,df_criteria_profils,score_bymagazine
+    return df_score, coeff_list, df_criteria_list, df_criteria_bareme, dict_boundaries, df_criteria_profils, score_bymagazine, dict_categories
+
+def buildDictCategorie(df):
+    cat_df = df[['Categories','Valeurs']].copy().dropna()
+    cat_dict = dict(zip(cat_df['Categories'], cat_df['Valeurs']))
+    return cat_dict
      
 def buildCriteriaList(df):
         df_criteria_list = df.copy()
         for val in df_criteria_list.columns:
             if val.endswith('_Profil'):
                 df_criteria_list = df_criteria_list.drop(val, axis = 1)
-        return df_criteria_list.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil','Note_magazine'], 1)
+        return df_criteria_list.drop(['Score', 'Coefficient','Note','Min_value','Max_value','Profil', 'Bornes', 'Note_magazine', 'Categories', 'Valeurs'], 1)
                 
                 
 def buildCriteriaBaremedf(df_criteria_list, df_bareme):
@@ -109,12 +113,15 @@ def buildCoeffList(df):
             
     return coeff_list
 
-
-def buildProfils(df):
-    df_Profil_list = df.copy()
-    for val in df_Profil_list.columns:
-        if not val.endswith('Profil'):
-            df_Profil_list = df_Profil_list.drop(val, axis = 1)
+def buildProfils(df, df_criteria_list):
+    
+    columns_list = ['Profil']+[col+'_Profil' for col in df_criteria_list.columns.copy() if col != 'Produit']
+    df_Profil_list = pd.DataFrame(columns=columns_list)
+    for col in df_Profil_list:
+        if col == 'Profil':
+            df_Profil_list[col] = df['Profil'].copy()
+        else:
+            df_Profil_list[col] = df['Bornes'].copy()
     return df_Profil_list.dropna()
    
 
@@ -254,7 +261,7 @@ def black_row(sheet, min_col, max_col, min_row, thin_border):
 def columns_width(sheet):
     
     for i, col in enumerate(sheet.columns):
-        sheet.column_dimensions[get_column_letter(i+1)].width = 15
+        sheet.column_dimensions[get_column_letter(i+1)].width = 20
     
     
     

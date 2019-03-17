@@ -17,10 +17,11 @@ def main():
 #------------------------------------------------------------  
 #Q2.1
 #------------------------------------------------------------
-   csv_name='../data/data_couches_original.xlsx'
+   csv_name='../data/data_logiciels_original.xlsx'
+   export_name = './results/Logiciels_Analyse_Classement.xlsx'
     
     
-   model_name_1 = 'Programme Lineaire - Classement Couches-culottes avec notes' 
+   model_name_1 = 'Programme Lineaire - Classement Logiciels avec notes' 
    result_2_1 = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_1,
                       eval_expr='x1',
@@ -36,7 +37,7 @@ def main():
    
    
    
-   model_name_2 = 'Programme Lineaire - Classement Couches-culottes sans note'
+   model_name_2 = 'Programme Lineaire - Classement Logiciels sans note'
    result_2_2 = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_2,
                       eval_expr='x1',
@@ -60,7 +61,7 @@ def main():
    
    
    
-   model_name_3 = 'Programme Lineaire - Meilleur score Joone'
+   model_name_3 = 'Programme Lineaire - Meilleur score Dashlane'
    result_3_1_max = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_3,
                       eval_expr='y1',
@@ -70,7 +71,7 @@ def main():
    
     
   
-   model_name_4 = 'Programme Lineaire - Pire score Joone'
+   model_name_4 = 'Programme Lineaire - Pire score Dashlane'
    result_3_1_min = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_4,
                       eval_expr='y1',
@@ -88,7 +89,7 @@ def main():
    
    
    
-   exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Q3.1',
+   exportInExcel(export_name, 'Q3.1',
                  [result_original, result_3_1_max, result_3_1_min],
                  ['Modèle Original',model_name_3, model_name_4],
                  [dict_max_y1,dict_min_y1])
@@ -96,20 +97,20 @@ def main():
 #Q3.2
 #------------------------------------------------------------  
   
-   model_name_5 = 'Programme Lineaire - Meilleur score Lillydoo'
+   model_name_5 = 'Programme Lineaire - Meilleur score Avast'
    result_3_2_max = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_5,
-                      eval_expr='y12',
+                      eval_expr='y10',
                       direction='max',
                       update_model=update_model_Q3)
    
    print(result_3_2_max)
    
  
-   model_name_6 = 'Programme Lineaire - Pire score Lillydoo'
+   model_name_6 = 'Programme Lineaire - Pire score Avast'
    result_3_2_min = checkAdditiveModel(csv_name=csv_name,
-                      model_name='Programme Lineaire - Pire score Lillydoo',
-                      eval_expr='y12',
+                      model_name=model_name_6,
+                      eval_expr='y10',
                       direction='min',
                       update_model=update_model_Q3)
    
@@ -124,7 +125,7 @@ def main():
    
    
    
-   exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Q3.2',
+   exportInExcel(export_name, 'Q3.2',
                  [result_original, result_3_2_max, result_3_2_min],
                  ['Modèle Original',model_name_5, model_name_6],
                  [dict_max_y12,dict_min_y12])
@@ -133,10 +134,9 @@ def main():
 #Q4
 #------------------------------------------------------------  
    
-   update_model_Q4 = createUpdateModel([Variable ('x6', ub = 20)], ['c13', 'c14', 'c15', 
-                                                                    'c16', 'c17', 'c18',
-                                                                    'c19', 'c20', 'c21',
-                                                                    'c22', 'c23'])
+   update_model_Q4 = createUpdateModel([Variable ('x6', ub = 20)], ['c11', 'c12', 'c13', 
+                                                                    'c14', 'c15', 'c16',
+                                                                    'c17', 'c18', 'c19'])
 #------------------------------------------------------------  
 #Q4.1
 #------------------------------------------------------------
@@ -155,7 +155,7 @@ def main():
 #Q4.2
 #------------------------------------------------------------
    dict_max_all = compareRankings(result_original['Score'], result_4_1_all_max['Score']) 
-   exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Q4',
+   exportInExcel(export_name, 'Q4',
                  [result_original, result_4_1_all_max],
                  ['Modèle Original',model_name_7],
                  [dict_max_all])
