@@ -108,8 +108,8 @@ def main():
                       update_model=update_model_test)
    print(result_test_avast_min)
    
-   dict_max_y10 = compareRankings(result_original['Score'], result_test_max['Score'])
-   dict_min_y10 = compareRankings(result_original['Score'], result_test_min['Score'])
+   dict_max_y10 = compareRankings(result_original['Score'], result_test_avast_max['Score'])
+   dict_min_y10 = compareRankings(result_original['Score'], result_test_avast_min['Score'])
    
    
    
