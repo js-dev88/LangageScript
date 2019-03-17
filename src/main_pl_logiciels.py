@@ -92,7 +92,7 @@ def main():
 #TESTING different scenarios sans contraintes d'égalité - Avast max min 
 #------------------------------------------------------------  
 
-   model_name_test3 = 'Programme Lineaire - Meilleur score Dashlane'
+   model_name_test3 = 'Programme Lineaire - Meilleur score Avast'
    result_test_avast_max = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_test3,
                       eval_expr='y10',
@@ -100,7 +100,7 @@ def main():
                       update_model=update_model_test)
    print(result_test_avast_max)
    
-   model_name_test4 = 'Programme Lineaire - Pire score Dashlane'
+   model_name_test4 = 'Programme Lineaire - Pire score Avast'
    result_test_avast_min = checkAdditiveModel(csv_name=csv_name,
                       model_name=model_name_test4,
                       eval_expr='y10',
