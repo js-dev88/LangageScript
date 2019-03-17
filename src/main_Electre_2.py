@@ -18,11 +18,10 @@ def main():
 #------------------------------------------------------------
 #Etape 1: Concordance partielle
 #------------------------------------------------------------
-   csv_name='../data/data_couches_original.xlsx'
+   csv_name='../data/data_logiciels_original.xlsx'
    direction="max"
    lamda=0.55
    result_original = getElectreTriData(csv_name) 
-   resultat={'res':lamda,'res2':lamda,'res3':lamda}
    #resultat={'coef - Spearman': 0.8186210070534754, 'p - Spearman': 0.0011302533518624306, 'tau - Kendall': 0.7357148541413415, 'p_val - Kendall': 0.0020442312329492676}
 
 
@@ -86,7 +85,7 @@ def main():
    
    print("NEW DF", new_df)
    result = {"Tx Mauvaise Classif Optimiste": taux_mauvaise_classification, "Tx Mauvaise Classif Pessimiste" :taux_mauvaise_classification1  }
-   exportInExcel('./Partie_1_Analyse_Classement.xlsx', 'Electre-tri-Couches',
+   exportInExcel('./Partie_2_Analyse_Classement.xlsx', 'Electre-tri-Couches',
                  [new_df],
                  ['Modèle'],
                  [result], 
