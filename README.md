@@ -5,5 +5,5 @@ modèles d’évaluation utilisés pour l’élaboration des classements de prod
 appuierons sur des classements de produits publiés par certains magazines comme 60 millions de consommateurs. Ce
 travail sera réalisé à l’aide d’algorithmes implémentés en langage Python.
 
-* le sujet est disponible dans le répertoire [pdf](https://github.com/js-dev88/LangageScript/tree/master/pdf)
-* le compte-rendu est disponible [ici](https://js-dev88.github.io/LangageScript/)
+* le sujet est disponible dans le répertoire [pdf](https://github.com/js-dev88/LangageScript/blob/master/pdf/Projet_2018_2019.pdf)
+* le compte-rendu peut être consulté [ici](https://js-dev88.github.io/LangageScript/)
